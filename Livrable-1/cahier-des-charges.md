@@ -93,7 +93,7 @@ Visualisation (Optionnel) & Outils graphiques pour observer l'évolution et les 
 Un tutoriel/guide peut grandement aider un nouvel utilisateur qui souhaiterait utiliser une application qu’il ne connaît pas.
 
 \begin{center}
-\begin{longtable}{|p{4cm}|p{6.5cm}|p{3.5cm}|}
+\begin{longtable}{|p{4cm}|p{6.5cm}|p{4cm}|}
 \hline
 \textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Critère de Validation} \\ \hline
 \endfirsthead
@@ -118,11 +118,11 @@ Optionnellement une interface CLI voire GUI facilitant l’utilisation de l’ap
 \hline
 \textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} \\ \hline
 \endhead
-Commandes documentées (CLI) & Commandes de base nécessaires au lancement du programme, accompagnées de leur documentation. & argparse(librairie python) & Tests unitaires: tester que les commandes réalisent les actions souhaités \\ \hline
-Gestion de l'environnement & Commandes spécifiques pour créer et sélectionner l'environnement (OvercookedAI, algorithme PPO) pour le système multi-agent. & argparse(librairie python) & Tests unitaires: tester que les commandes créent et séléctionnent l'environnement \\ \hline
-Sélection des algorithmes & Commandes permettant de choisir un ou plusieurs algorithmes à intégrer aux agents. & argparse(librairie python) & Tests unitaires: tester que les bons algorithmes sont bien séléctionné avec les commandes \\ \hline
-Paramétrage et optimisation & Commandes pour sélectionner, paramétrer et optimiser les hyperparamètres. & argparse(librairie python) & Tests unitaires: : Validation des sorties de commandes (paramétrage et optimisation réussit). \\ \hline
-Commande de test et rendu du résultat & Commandes pour lancer les suites de tests et visualiser les rapports d'exécution. & argparse(librairie python) & Tests unitaires : tester la visualisation des rapports, qu'ils soient bien générés \\ \hline
+Commandes documentées (CLI) & Commandes de base nécessaires au lancement du programme, accompagnées de leur documentation. & argparse (librairie python) & Tests unitaires: tester que les commandes réalisent les actions souhaités \\ \hline
+Gestion de l'environnement & Commandes spécifiques pour créer et sélectionner l'environnement (OvercookedAI, algorithme PPO) pour le système multi-agent. & argparse (librairie python) & Tests unitaires: tester que les commandes créent et séléctionnent l'environnement \\ \hline
+Sélection des algorithmes & Commandes permettant de choisir un ou plusieurs algorithmes à intégrer aux agents. & argparse (librairie python) & Tests unitaires: tester que les bons algorithmes sont bien séléctionné avec les commandes \\ \hline
+Paramétrage et optimisation & Commandes pour sélectionner, paramétrer et optimiser les hyperparamètres. & argparse (librairie python) & Tests unitaires: : Validation des sorties de commandes (paramétrage et optimisation réussit). \\ \hline
+Commande de test et rendu du résultat & Commandes pour lancer les suites de tests et visualiser les rapports d'exécution. & argparse (librairie python) & Tests unitaires : tester la visualisation des rapports, qu'ils soient bien générés \\ \hline
 Interface graphique Web & Interface visuelle permettant d'exécuter les commandes de manière intuitive. & Vue.js / React / Angular & Tests unitaires / fonctionnels: tests permettant de s'assurer que les interractions avec l'interface exécutent les bonnes actions\\ \hline
 \end{longtable}
 \end{center}
