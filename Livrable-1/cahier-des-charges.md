@@ -8,15 +8,18 @@ date: "Janvier 2026"
 logo: "logo_uga.png"
 coverpage: true
 ---
-# RAPPEL DU PROJET
+# PROJET MARIO
 
 ## *Objectif général*
 
 L’objectif du projet est de rendre l’utilisation de techniques de *Reinforcment Learning (RL)* et *Multi-Agent Reinforcment Learning (MARL)* les plus agnostiques de connaissances expertes que possible. Cette plateforme doit s’appuyer sur des technologies (librairies) existantes afin de permettre au mieux d’automatiser des tâches techniques habituellement réalisées à la main.
-
 À noter que  ce projet a pour vocation d’avoir une application locale, ce qui veut dire que son API n’est utilisable que localement pour l’application.  
+Ce logiciel doit permettre de choisir un environnement de jeu vidéo, un ou plusieurs algorithme(s) d'apprentissage par renforcement, tester et visualiser le resultat de l'entrainement en entrant des comandes ou interagissant avec une interface graphique. Ces fonctionalité ne sont pas toutes réuni au sein d'une solution / logiciel / plateforme unique. 
+
 
 ## *Analyse de l’existant*
+
+Le tableau suivant présente un comparatif des platforme existant et celle qui est proposé ici. 
 
 \begin{center}
 \begin{longtable}{|p{5cm}|c|c|c|c|c|}
@@ -35,7 +38,7 @@ Interface de visualisation & [x] & [x] & [x] & [x] & [x] \\ \hline
 
 
 
-# DÉFINITION DES TÂCHES ET VALIDATIONS
+# MISE EN OEUVRE
 
 Dans le cadre du projet, plusieurs tâches doivent être réalisées. Celles-ci correspondent aux fonctionnalités à implémenter afin d’assurer le bon fonctionnement de la plateforme. Ces tâches peuvent être organisées et planifiées de manière itérative et chronologique. Les différentes parties présentées ci-dessous détaillent l’ensemble des tâches ainsi que leurs critères de validation. Il est toutefois important de préciser que les technologies proposées sont susceptibles d’évoluer si d’autres solutions sont jugées plus appropriées.
 
@@ -59,7 +62,7 @@ Une API (Interface de Programmation d’Application) est un ensemble de fonction
 \textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} \\ \hline
 \endhead
 Sélection et l'initialisation d'environnements. & L'API doit permettre la sélection et l'initialisation de différents environnements. & PettingZoo, MAgent2 & Tests unitaires \\ \hline
-Configuration d'algorithmes MARL/RL & L'API doit permettre de configurer les algorithmes RL/MARL. & PPO, MAPPO & Tests unitaires \\ \hline
+Configuration d'algorithmes MARL/RL & L'API doit permettre de configurer les algorithmes RL/MARL (ex : PPO, MAPPO,etc...). & PyTorch, EPyMARL, Mava, JaxMARL, MARLLib & Tests unitaires \\ \hline
 Gestion intégrée des phases & L'API doit permettre la pré-configuration de l'environnement ainsi que l'entraînement et les tests. & PettingZoo, MAgent2 & Tests unitaires \\ \hline
 \end{longtable}
 \end{center}
