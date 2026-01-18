@@ -16,12 +16,11 @@ L’objectif du projet est de rendre l’utilisation de techniques de *Reinforcm
 
 À noter que  ce projet a pour vocation d’avoir une application locale, ce qui veut dire que son API n’est utilisable que localement pour l’application.  
 
-Ce logiciel doit permettre de choisir un environnement de jeu vidéo, un ou plusieurs algorithme(s) d'apprentissage par renforcement, tester et visualiser le resultat de l'entrainement en entrant des comandes ou interagissant avec une interface graphique. Ces fonctionalité ne sont pas toutes réuni au sein d'une solution / logiciel / plateforme unique. 
+Ce logiciel doit permettre de choisir un environnement de jeu vidéo, un ou plusieurs algorithme(s) d'apprentissage par renforcement, tester et visualiser le resultat de l'entrainement en entrant des comandes ou interagissant avec une interface graphique. Ces fonctionalité ne sont pas toutes réuni au sein d'une solution / logiciel / plateforme unique. Pour justifier le positionnement de ce projet, il est donc nécessaire de le situer par rapport aux solutions actuelles.
 
 
 ## *Analyse de l’existant*
-
-Le tableau suivant présente un comparatif des platforme existant et celle qui est proposé ici. 
+Le tableau suivant permet de mettre évidence les manques spécifiques que la plateforme MARIO vise à combler, il présente un comparatif entre des platforme existantes et celle de notre projet. 
 
 \begin{center}
 \begin{longtable}{|p{5cm}|c|c|c|c|c|}
@@ -38,7 +37,7 @@ Interface de visualisation & [x] & [x] & [x] & [x] & [x] \\ \hline
 \end{longtable}
 \end{center}
 
-
+Après avoir compris la plus-value du projet, nous pouvons maintenant détailler les différentes étapes de notre mise en oeuvre.
 
 # MISE EN OEUVRE
 
