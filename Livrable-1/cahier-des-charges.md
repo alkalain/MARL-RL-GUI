@@ -98,7 +98,7 @@ Un tutoriel/guide peut grandement aider un nouvel utilisateur qui souhaiterait u
 \hline
 \textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Critère de Validation} \\ \hline
 \endhead
-Tutoriel écrit pour l'utilisateur & Apporter un guide complet pour un utilisateur ayant des connaissances techniques limitées. & Tests utilisateurs / Feedback \\ \hline
+Tutoriel écrit pour l'utilisateur (Wiki) & Apporter un guide complet pour un utilisateur ayant des connaissances techniques limitées. & Tests utilisateurs / Feedback: faire remplir une grille de satisfaction (note de 1 à 10 + commentaire optionnel) couvrant chaque étapes du wiki. \\ \hline
 Complément vidéo & (Optionnel) Vidéo de démonstration pour illustrer la prise en main de l'outil. & Tests utilisateurs / Feedback \\ \hline
 \end{longtable}
 \end{center}
