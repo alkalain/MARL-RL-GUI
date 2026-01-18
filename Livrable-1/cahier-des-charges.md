@@ -125,3 +125,5 @@ Commande de test et rendu du résultat & Commandes pour lancer les suites de tes
 Interface graphique Web & Interface visuelle permettant d'exécuter les commandes de manière intuitive. & Vue.js / React / Angular & Tests unitaires / fonctionnels: tests permettant de s'assurer que les interractions avec l'interface exécutent les bonnes actions\\ \hline
 \end{longtable}
 \end{center}
+
+# Bibliographie
