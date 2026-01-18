@@ -117,7 +117,8 @@ Optionnellement une interface CLI voire GUI facilitant l’utilisation de l’ap
 \textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} \\ \hline
 \endhead
 Commandes documentées (CLI) & Commandes de base nécessaires au lancement du programme, accompagnées de leur documentation. & -- & Tests unitaires: tester que les commandes réalisent les actions souhaités \\ \hline
-Gestion de l'environnement & Commandes spécifiques pour créer et sélectionner l'environnement pour le système multi-agent. & -- & Tests unitaires: tester que les commandes créent et séléctionnent l'environnement \\ \hline
+Gestion de l'environnement & Commandes spécifiques pour créer et sélectionner l'environnement pour le système multi-agent. & OvercookedAI, l'algorithme PPO
+ & Tests unitaires: tester que les commandes créent et séléctionnent l'environnement \\ \hline
 Sélection des algorithmes & Commandes permettant de choisir un ou plusieurs algorithmes à intégrer aux agents. & -- & Tests unitaires: tester que les bons algorithmes sont bien séléctionné avec les commandes \\ \hline
 Paramétrage et optimisation & Commandes pour sélectionner, paramétrer et optimiser les hyperparamètres. & -- & Tests unitaires: : Validation des sorties de commandes (paramétrage et optimisation réussit). \\ \hline
 Commande de test et rendu du résultat & Commandes pour lancer les suites de tests et visualiser les rapports d'exécution. & -- & Tests unitaires : tester la visualisation des rapports, qu'ils soient bien générés \\ \hline
