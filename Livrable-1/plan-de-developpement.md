@@ -10,7 +10,7 @@ coverpage: true
 ---
 # Plan de développement
 
-##  DÉFINITION DES TÂCHES ET VALIDATIONS
+##  *Mise en oeuvre*
 
 Dans le cadre du projet, plusieurs tâches doivent être réalisées. Celles-ci correspondent aux fonctionnalités à implémenter afin d’assurer le bon fonctionnement de la plateforme. Ces tâches peuvent être organisées et planifiées de manière itérative et chronologique. Les différentes parties présentées ci-dessous détaillent l’ensemble des tâches ainsi que leurs critères de validation. Il est toutefois important de préciser que les technologies proposées sont susceptibles d’évoluer si d’autres solutions sont jugées plus appropriées. Concernant la répartition du travail, il est pour l’instant prévu que le groupe avance simultanément sur les mêmes tâches, la durée estimée quant à elle est une approximation prévisionnelle et non définitive.
 
@@ -26,26 +26,25 @@ Cette étape est indispensable et constitue un prérequis au lancement des phase
 
 Une API (Interface de Programmation d’Application) est un ensemble de fonctions et de protocoles permettant à différents logiciels ou composants de communiquer entre eux. Elle sert à exposer les fonctionnalités nécessaires au projet de manière standardisée, pour que d’autres programmes puissent les utiliser sans connaître les détails internes de l’application.
 
-| Intitulé de la tâche | Description | Technologies | Critère de Validation | Durée estimée |
 \begin{center}
-\begin{longtable}{|p{3.5cm}|p{5cm}|p{2.5cm}|p{4cm}|p{2cm}|}
+\begin{longtable}{|p{3.5cm}|p{5cm}|p{4.5cm}|p{1.2cm}|}
 \hline
-\textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} & \textbf{Durée estimée} \\
+\textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Critère de Validation} & \textbf{Durée estimée} \\
 \hline
 \endfirsthead
 
 \hline
-\textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} & \textbf{Durée estimée} \\
+\textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Critère de Validation} & \textbf{Durée estimée} \\
 \hline
 \endhead
 
-Sélection et l'initialisation d'environnements. & L'API doit permettre la sélection et l'initialisation de différents environnements. & PettingZoo, MAgent2 & Tests unitaires : Initialiser un environnement de jeu OvercookedAI & 14 jours \\
+Sélection et l'initialisation d'environnements. & L'API doit permettre la sélection et l'initialisation de différents environnements. & Tests unitaires : Initialiser un environnement de jeu OvercookedAI & 14 jours \\
 \hline
 
-Configuration d'algorithmes MARL/RL & L'API doit permettre de configurer les algorithmes RL/MARL (ex : PPO, MAPPO, etc...). & PyTorch, EPyMARL, Mava, JaxMARL, MARLLib & Tests unitaires : sélectionner un algorithme PPO en passant par les différents paramétrages & 20 jours \\
+Configuration d'algorithmes MARL/RL & L'API doit permettre de configurer les algorithmes RL/MARL (ex : PPO, MAPPO, etc...). & Tests unitaires : sélectionner un algorithme PPO en passant par les différents paramétrages & 20 jours \\
 \hline
 
-Gestion intégrée des phases & L'API doit permettre la pré-configuration de l'environnement ainsi que l'entraînement et les tests. & PettingZoo, MAgent2 & Tests unitaires : pré-configuration de l'environnement OvercookedAI, pré-configuration de l'entraînement avec l'algorithme PPO et des tests & 20 jours \\
+Gestion intégrée des phases & L'API doit permettre la pré-configuration de l'environnement ainsi que l'entraînement et les tests. & Tests unitaires : pré-configuration de l'environnement OvercookedAI, pré-configuration de l'entraînement avec l'algorithme PPO et des tests & 20 jours \\
 \hline
 
 \end{longtable}
@@ -60,24 +59,24 @@ Gestion intégrée des phases & L'API doit permettre la pré-configuration de l'
 Les hyper-paramètres désignent les paramètres d’un modèle d’apprentissage  permettant d'optimiser la qualité et la rapidité de l’apprentissage. Sélectionner et régler les bonnes valeurs d'un hyper-paramètre sert à adapter l’apprentissage du  modèle aux contraintes et exigences du problème à résoudre.
 
 \begin{center}
-\begin{longtable}{|p{3.5cm}|p{5cm}|p{2.5cm}|p{4cm}|p{2cm}|}
+\begin{longtable}{|p{3.5cm}|p{5cm}|p{4.5cm}|p{1.2cm}|}
 \hline
-\textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} & \textbf{Durée estimée} \\
+\textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Critère de Validation} & \textbf{Durée estimée} \\
 \hline
 \endfirsthead
 
 \hline
-\textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} & \textbf{Durée estimée} \\
+\textbf{Intitulé de la tâche} & \textbf{Description} &  \textbf{Critère de Validation} & \textbf{Durée estimée} \\
 \hline
 \endhead
 
-Optimisation de l'efficacité d'apprentissage & Utilisation d'algorithmes pour l'optimisation automatique des hyperparamètres et arrêt des essais non prometteurs (élagage). & Librairie Optuna & Tests unitaires : exécuter l'optimisation des hyperparamètres sur l'algorithme de PPO précédemment configuré. & 14 jours \\
+Optimisation de l'efficacité d'apprentissage & Utilisation d'algorithmes pour l'optimisation automatique des hyperparamètres et arrêt des essais non prometteurs (élagage). & Tests unitaires : exécuter l'optimisation des hyperparamètres sur l'algorithme de PPO précédemment configuré. & 14 jours \\
 \hline
 
-Parallélisation des essais & Possibilité d'exécuter les essais de multiples agents en parallèle sans modification du code source. & Librairie Optuna & Tests unitaires : Configurer plusieurs essais d'entraînement et exécuter plusieurs optimisations simultanées des algorithmes lancés. & 9 jours \\
+Parallélisation des essais & Possibilité d'exécuter les essais de multiples agents en parallèle sans modification du code source. & Tests unitaires : Configurer plusieurs essais d'entraînement et exécuter plusieurs optimisations simultanées des algorithmes lancés. & 9 jours \\
 \hline
 
-Visualisation & Outils graphiques pour observer l'évolution et les résultats des optimisations effectuées. & Librairie Optuna & Tests unitaires : Afficher un graphe représentant deux hyperparamètres sélectionnés montrant l'évolution des résultats. & 6 jours \\
+Visualisation & Outils graphiques pour observer l'évolution et les résultats des optimisations effectuées. & Tests unitaires : Afficher un graphe représentant deux hyperparamètres sélectionnés montrant l'évolution des résultats. & 6 jours \\
 \hline
 
 \end{longtable}
@@ -91,7 +90,7 @@ Visualisation & Outils graphiques pour observer l'évolution et les résultats d
 
 Un tutoriel/guide peut grandement aider un nouvel utilisateur qui souhaiterait utiliser une application qu’il ne connaît pas.
 
-| Intitulé de la tâche | Description | Critère de Validation | Durée estimée |
+
 \begin{center}
 \begin{longtable}{|p{3.5cm}|p{5cm}|p{4cm}|p{2cm}|}
 \hline
@@ -122,33 +121,33 @@ Complément vidéo & (Optionnel) Vidéo de démonstration pour illustrer la pris
 Optionnellement une interface CLI voir GUI facilitant l’utilisation de l’application. Le but d’une interface CLI est d'exécuter l’application via des lignes de commandes (texte), un GUI permet de faire ce qu’un CLI fait, mais grâce à une interface visuelle, rendant l’application plus accessible.
 
 \begin{center}
-\begin{longtable}{|p{3.5cm}|p{5cm}|p{2.5cm}|p{4cm}|p{2cm}|}
+\begin{longtable}{|p{3.5cm}|p{5cm}|p{4.5cm}|p{1.2cm}|}
 \hline
-\textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} & \textbf{Durée estimée} \\
+\textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Critère de Validation} & \textbf{Durée estimée} \\
 \hline
 \endfirsthead
 
 \hline
-\textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} & \textbf{Durée estimée} \\
+\textbf{Intitulé de la tâche} & \textbf{Description} &  \textbf{Critère de Validation} & \textbf{Durée estimée} \\
 \hline
 \endhead
 
-Commandes documentées (CLI) & Commandes de base nécessaires au lancement du programme, accompagnées de leur documentation. & argparse (librairie python) & Tests unitaires & 2 jours \\
+Commandes documentées (CLI) & Commandes de base nécessaires au lancement du programme, accompagnées de leur documentation. & Tests unitaires: tester que les commandes réalisent les actions souhaités & 2 jours \\
 \hline
 
-Gestion de l'environnement & Commandes spécifiques pour créer et sélectionner l'environnement (OvercookedAI, algorithme PPO) pour le système multi-agent. & argparse (librairie python) & Tests unitaires & 3 jours \\
+Gestion de l'environnement & Commandes spécifiques pour créer et sélectionner l'environnement (OvercookedAI, algorithme PPO) pour le système multi-agent. & Tests unitaires: tester que les commandes créent et séléctionnent l'environnement & 3 jours \\
 \hline
 
-Sélection des algorithmes & Commandes permettant de choisir un ou plusieurs algorithmes à intégrer aux agents. & argparse (librairie python) & Tests unitaires & 2 jours \\
+Sélection des algorithmes & Commandes permettant de choisir un ou plusieurs algorithmes à intégrer aux agents. & Tests unitaires: tester que les bons algorithmes sont bien séléctionné avec les commandes & 2 jours \\
 \hline
 
-Paramétrage et optimisation & Commandes pour sélectionner, paramétrer et optimiser les hyperparamètres. & argparse (librairie python) & Tests unitaires & 2 jours \\
+Paramétrage et optimisation & Commandes pour sélectionner, paramétrer et optimiser les hyperparamètres. & Tests unitaires: : Validation des sorties de commandes (paramétrage et optimisation réussit). & 2 jours \\
 \hline
 
-Commande de test et rendu du résultat & Commandes pour lancer les suites de tests et visualiser les rapports d'exécution. & Vue.js / React / Angular (à choisir) & Tests unitaires / fonctionnels & 3 jours \\
+Commande de test et rendu du résultat & Commandes pour lancer les suites de tests et visualiser les rapports d'exécution. & Tests unitaires : tester la visualisation des rapports, qu'ils soient bien générés & 3 jours \\
 \hline
 
-Interface graphique Web & Interface visuelle permettant d'exécuter les commandes de manière intuitive. & Vue.js / React / Angular & Tests unitaires / fonctionnels : tests permettant de s'assurer que les interactions avec l'interface exécutent les bonnes actions & 6 jours \\
+Interface graphique Web & Interface visuelle permettant d'exécuter les commandes de manière intuitive. & Tests unitaires / fonctionnels : tests permettant de s'assurer que les interactions avec l'interface exécutent les bonnes actions & 6 jours \\
 \hline
 
 \end{longtable}
