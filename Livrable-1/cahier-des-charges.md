@@ -13,7 +13,9 @@ coverpage: true
 ## *Objectif général*
 
 L’objectif du projet est de rendre l’utilisation de techniques de *Reinforcment Learning (RL)* et *Multi-Agent Reinforcment Learning (MARL)* les plus agnostiques de connaissances expertes que possible. Cette plateforme doit s’appuyer sur des technologies (librairies) existantes afin de permettre au mieux d’automatiser des tâches techniques habituellement réalisées à la main.
+
 À noter que  ce projet a pour vocation d’avoir une application locale, ce qui veut dire que son API n’est utilisable que localement pour l’application.  
+
 Ce logiciel doit permettre de choisir un environnement de jeu vidéo, un ou plusieurs algorithme(s) d'apprentissage par renforcement, tester et visualiser le resultat de l'entrainement en entrant des comandes ou interagissant avec une interface graphique. Ces fonctionalité ne sont pas toutes réuni au sein d'une solution / logiciel / plateforme unique. 
 
 
@@ -54,7 +56,7 @@ Une API (Interface de Programmation d’Application) est un ensemble de fonction
 
 
 \begin{center}
-\begin{longtable}{|p{3.5cm}|p{5cm}|p{2.5cm}|p{3cm}|}
+\begin{longtable}{|p{3.5cm}|p{5cm}|p{2.5cm}|p{4cm}|}
 \hline
 \textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} \\ \hline
 \endfirsthead
@@ -73,7 +75,7 @@ Les hyper-paramètres désignent les paramètres d’un modèle d’apprentissag
 
 
 \begin{center}
-\begin{longtable}{|p{3.5cm}|p{5cm}|p{3cm}|p{3cm}|}
+\begin{longtable}{|p{3.5cm}|p{5cm}|p{3cm}|p{4cm}|}
 \hline
 \textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} \\ \hline
 \endfirsthead
@@ -109,7 +111,7 @@ Optionnellement une interface CLI voire GUI facilitant l’utilisation de l’ap
 
 
 \begin{center}
-\begin{longtable}{|p{3cm}|p{5cm}|p{2.5cm}|p{3cm}|}
+\begin{longtable}{|p{3cm}|p{5cm}|p{2.5cm}|p{4cm}|}
 \hline
 \textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} \\ \hline
 \endfirsthead
