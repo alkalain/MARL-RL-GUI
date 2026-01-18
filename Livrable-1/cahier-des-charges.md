@@ -16,7 +16,7 @@ L’objectif du projet est de rendre l’utilisation de techniques de *Reinforcm
 
 À noter que  ce projet a pour vocation d’avoir une application locale, ce qui veut dire que son API n’est utilisable que localement pour l’application.  
 
-Ce logiciel doit permettre de choisir un environnement de jeu vidéo, un ou plusieurs algorithme(s) d'apprentissage par renforcement, tester et visualiser le resultat de l'entrainement en entrant des comandes ou interagissant avec une interface graphique. Ces fonctionalité ne sont pas toutes réuni au sein d'une solution / logiciel / plateforme unique. Pour justifier le positionnement de ce projet, il est donc nécessaire de le situer par rapport aux solutions actuelles.
+Ce logiciel doit permettre de choisir un environnement de jeu vidéo, un ou plusieurs algorithme(s) d'apprentissage par renforcement, tester et visualiser le resultat de l'entrainement en entrant des comandes ou interagissant avec une interface graphique. Ces fonctionalité ne sont pas toutes réunies au sein d'une solution / logiciel / plateforme unique. Pour justifier le positionnement de ce projet, il est donc nécessaire de le situer par rapport aux solutions actuelles.
 
 
 ## *Analyse de l’existant*
