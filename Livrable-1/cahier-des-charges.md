@@ -61,9 +61,9 @@ Une API (Interface de Programmation d’Application) est un ensemble de fonction
 \hline
 \textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} \\ \hline
 \endhead
-Sélection et l'initialisation d'environnements. & L'API doit permettre la sélection et l'initialisation de différents environnements. & PettingZoo, MAgent2 & Tests unitaires \\ \hline
-Configuration d'algorithmes MARL/RL & L'API doit permettre de configurer les algorithmes RL/MARL (ex : PPO, MAPPO,etc...). & PyTorch, EPyMARL, Mava, JaxMARL, MARLLib & Tests unitaires \\ \hline
-Gestion intégrée des phases & L'API doit permettre la pré-configuration de l'environnement ainsi que l'entraînement et les tests. & PettingZoo, MAgent2 & Tests unitaires \\ \hline
+Sélection et l'initialisation d'environnements. & L'API doit permettre la sélection et l'initialisation de différents environnements. & PettingZoo, MAgent2 & Tests unitaires : Initialiser un environnement de jeu OvercookedAI \\ \hline
+Configuration d'algorithmes MARL/RL & L'API doit permettre de configurer les algorithmes RL/MARL (ex : PPO, MAPPO,etc...). & PyTorch, EPyMARL, Mava, JaxMARL, MARLLib & Tests unitaires : sélectioner un algorithme PPO en passant par les differents paramétrages \\ \hline
+Gestion intégrée des phases & L'API doit permettre la pré-configuration de l'environnement ainsi que l'entraînement et les tests. & PettingZoo, MAgent2 & Tests unitaires : pré-configuration de l'environnement OvercookedAI, pré-configuration de l'entrainement avec l'algorithme PPO et des test\\ \hline
 \end{longtable}
 \end{center}
 
@@ -82,7 +82,7 @@ Les hyper-paramètres désignent les paramètres d’un modèle d’apprentissag
 \endhead
 Optimisation de l'efficacité d'apprentissage & Utilisation d'algorithmes pour l'optimisation automatique des hyperparamètres et arrêt des essais non prometteurs (élagage). & Librairie Optuna & Tests unitaires \\ \hline
 Parallélisation des essais & Possibilité d'exécuter les essais de multiples agents en parallèle sans modification du code source. & Librairie Optuna & Tests unitaires \\ \hline
-Visualisation & Outils graphiques pour observer l'évolution et les résultats des optimisations effectuées. & Librairie Optuna & Tests unitaires \\ \hline
+Visualisation (Optionnel) & Outils graphiques pour observer l'évolution et les résultats des optimisations effectuées. & Librairie Optuna & Tests unitaires \\ \hline
 \end{longtable}
 \end{center}
 
