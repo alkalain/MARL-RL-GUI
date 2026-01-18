@@ -126,4 +126,10 @@ Interface graphique Web & Interface visuelle permettant d'exécuter les commande
 \end{longtable}
 \end{center}
 
+# Annexe 
+
+## Cas d'usage
+
+![Cas d'usage]('Use-case.png'){#fig:usecase width=35% height=35%}
+
 # Bibliographie
