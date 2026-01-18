@@ -105,7 +105,7 @@ Complément vidéo & (Optionnel) Vidéo de démonstration pour illustrer la pris
 
 ## *Mise en place d’une interface CLI / GUI*
 
-Optionnellement une interface CLI voir GUI facilitant l’utilisation de l’application. Le but d’une interface CLI est d'exécuter l’application via des lignes de commandes (texte), un GUI permet de faire ce qu’un CLI fait mais grâce à une interface visuelle, rendant l’application plus accessible.
+Optionnellement une interface CLI voire GUI facilitant l’utilisation de l’application. Le but d’une interface CLI est d'exécuter l’application via des lignes de commandes (texte), un GUI permet de faire ce qu’un CLI fait mais grâce à une interface visuelle, rendant l’application plus accessible.
 
 
 \begin{center}
@@ -116,10 +116,11 @@ Optionnellement une interface CLI voir GUI facilitant l’utilisation de l’app
 \hline
 \textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} \\ \hline
 \endhead
-Commandes documentées (CLI) & Commandes de base nécessaires au lancement du programme, accompagnées de leur documentation. & -- & Tests unitaires \\ \hline
-Gestion de l'environnement & Commandes spécifiques pour créer et sélectionner l'environnement pour le système multi-agent. & -- & Tests unitaires \\ \hline
-Sélection des algorithmes & Commandes permettant de choisir un ou plusieurs algorithmes à intégrer aux agents. & -- & Tests unitaires \\ \hline
-Paramétrage et optimisation & Commandes pour sélectionner, paramétrer et optimiser les hyperparamètres. & -- & Tests unitaires \\ \hline
-Interface graphique Web & Interface visuelle permettant d'exécuter les commandes de manière intuitive. & Vue.js / React / Angular & Tests unitaires / fonctionnels \\ \hline
+Commandes documentées (CLI) & Commandes de base nécessaires au lancement du programme, accompagnées de leur documentation. & -- & Tests unitaires: tester que les commandes réalisent les actions souhaités \\ \hline
+Gestion de l'environnement & Commandes spécifiques pour créer et sélectionner l'environnement pour le système multi-agent. & -- & Tests unitaires: tester que les commandes créent et séléctionnent l'environnement \\ \hline
+Sélection des algorithmes & Commandes permettant de choisir un ou plusieurs algorithmes à intégrer aux agents. & -- & Tests unitaires: tester que les bons algorithmes sont bien séléctionné avec les commandes \\ \hline
+Paramétrage et optimisation & Commandes pour sélectionner, paramétrer et optimiser les hyperparamètres. & -- & Tests unitaires: : Validation des sorties de commandes (paramétrage et optimisation réussit). \\ \hline
+Commande de test et rendu du résultat & Commandes pour lancer les suites de tests et visualiser les rapports d'exécution. & -- & Tests unitaires : tester la visualisation des rapports, qu'ils soient bien générés \\ \hline
+Interface graphique Web & Interface visuelle permettant d'exécuter les commandes de manière intuitive. & Vue.js / React / Angular & Tests unitaires / fonctionnels: tests permettant de s'assurer que les interractions avec l'interface exécutent les bonnes actions\\ \hline
 \end{longtable}
 \end{center}
