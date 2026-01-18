@@ -80,9 +80,9 @@ Les hyper-paramètres désignent les paramètres d’un modèle d’apprentissag
 \hline
 \textbf{Intitulé de la tâche} & \textbf{Description} & \textbf{Technologies} & \textbf{Critère de Validation} \\ \hline
 \endhead
-Optimisation de l'efficacité d'apprentissage & Utilisation d'algorithmes pour l'optimisation automatique des hyperparamètres et arrêt des essais non prometteurs (élagage). & Librairie Optuna & Tests unitaires \\ \hline
-Parallélisation des essais & Possibilité d'exécuter les essais de multiples agents en parallèle sans modification du code source. & Librairie Optuna & Tests unitaires \\ \hline
-Visualisation (Optionnel) & Outils graphiques pour observer l'évolution et les résultats des optimisations effectuées. & Librairie Optuna & Tests unitaires \\ \hline
+Optimisation de l'efficacité d'apprentissage & Utilisation d'algorithmes pour l'optimisation automatique des hyperparamètres et arrêt des essais non prometteurs (élagage). & Librairie Optuna & Tests unitaires : exécuter l'optimisation des hyper-paramètres sur l'algorithme de PPO précédemment configuré. \\ \hline
+Parallélisation des essais & Possibilité d'exécuter les essais de multiples agents en parallèle sans modification du code source. & Librairie Optuna & Tests unitaires : Configurer plusieurs essais d'entraînement et exécuter plusieurs optimisations simultanées des algorithmes lancés. \\ \hline
+Visualisation (Optionnel) & Outils graphiques pour observer l'évolution et les résultats des optimisations effectuées. & Librairie Optuna & Tests unitaires : Afficher un graphe représentant deux hyper-paramètres sélectionnés montrant l'évolution des résultats. \\ \hline
 \end{longtable}
 \end{center}
 
