@@ -136,3 +136,17 @@ La **Figure 1** repeprésente les cas d'usages de la solution. Le diagramme incl
 ![Cas d'usage](./Use-case.png){#fig:usecase width=100% height=30%}
 
 # Bibliographie
+
+PettingZoo documentation. (s. d.). https://pettingzoo.farama.org/
+
+Uoe-Agents. (s. d.). GitHub - uoe-agents/epymarl : An extension of the PyMARL codebase that includes additional algorithms and environment support. GitHub. https://github.com/uoe-agents/epymarl
+
+Instadeepai. (s. d.). GitHub - instadeepai/Mava :  A research-friendly codebase for fast experimentation of multi-agent reinforcement learning in JAX. GitHub. https://github.com/instadeepai/Mava
+
+FLAIROx. (s. d.). GitHub - FLAIROx/JaxMARL : Multi-Agent Reinforcement Learning with JAX. GitHub. https://github.com/FLAIROx/JaxMARL
+
+Replicable-Marl. (s. d.). GitHub - Replicable-MARL/MARLlib : One repository is all that is necessary for Multi-agent Reinforcement Learning (MARL). GitHub. https://github.com/Replicable-MARL/MARLlib
+
+Optuna - A hyperparameter optimization framework. (s. d.). Optuna. https://optuna.org/
+
+Albrecht, S. V., Christianos, F., & Schäfer, L. (2024). Multi-Agent reinforcement learning : Foundations and Modern Approaches. MIT Press.
