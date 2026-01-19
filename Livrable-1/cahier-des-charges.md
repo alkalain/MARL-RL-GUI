@@ -12,11 +12,11 @@ coverpage: true
 
 ## *Objectif général*
 
-L’objectif du projet est de rendre l’utilisation de techniques de *Reinforcment Learning (RL)* et *Multi-Agent Reinforcment Learning (MARL)* les plus agnostiques de connaissances expertes que possible. Cette plateforme doit s’appuyer sur des technologies (librairies) existantes afin de permettre au mieux d’automatiser des tâches techniques habituellement réalisées à la main.
+L’objectif du projet est de rendre l’utilisation de techniques de *Reinforcment Learning (RL)* et *Multi-Agent Reinforcment Learning (MARL)* la plus agnostique de connaissances expertes possible. Cette plateforme doit s’appuyer sur des technologies (librairies) existantes afin de permettre au mieux d’automatiser des tâches techniques habituellement réalisées à la main.
 
 À noter que  ce projet a pour vocation d’avoir une application locale, ce qui veut dire que son API n’est utilisable que localement pour l’application.  
 
-Ce logiciel doit permettre de choisir un environnement de jeu vidéo, un ou plusieurs algorithme(s) d'apprentissage par renforcement, tester et visualiser le resultat de l'entrainement en entrant des comandes ou interagissant avec une interface graphique. Ces fonctionalité ne sont pas toutes réunies au sein d'une solution / logiciel / plateforme unique. Pour justifier le positionnement de ce projet, il est donc nécessaire de le situer par rapport aux solutions actuelles.
+Ce logiciel doit permettre de choisir un environnement de jeu vidéo, un ou plusieurs algorithme(s) d'apprentissage par renforcement, de tester et visualiser le résultat de l'entraînement en entrant des commandes ou en interagissant avec une interface graphique. Ces fonctionnalité ne sont pas toutes réunies au sein d'une solution / logiciel / plateforme unique. Pour justifier le positionnement de ce projet, il est donc nécessaire de le situer par rapport aux solutions actuelles.
 
 
 ## *Analyse de l’existant*
@@ -131,7 +131,7 @@ Interface graphique Web & Interface visuelle permettant d'exécuter les commande
 
 ## Cas d'usage
 
-La **Figure 1** repeprésente les cas d'usages de la sollution. Le diagramme inclus également les fonctionalité optionnele cité plus tôt. 
+La **Figure 1** repeprésente les cas d'usages de la solution. Le diagramme inclus également les fonctionalité optionnele cité plus tôt. 
 
 ![Cas d'usage](./Use-case.png){#fig:usecase width=100% height=30%}
 
