@@ -1,6 +1,7 @@
 ---
 title: "MARIO: Plan de développement"
 student-name: "Alain KARAPETIAN, Timeo RAPHOZ, Enzo VIGNE"
+tutor: "Tuteur : Julien SOULE"
 academic-year: "2025-2026"
 master-degree: "Master Mathématiques Informatiques Appliquées aux Sciences Humaines et Sociales (MIASHS)"
 master-year: "Master 1"
