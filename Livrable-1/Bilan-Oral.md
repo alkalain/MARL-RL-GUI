@@ -6,7 +6,7 @@ Expliquer l'utilisation d'un benchmark basé sur un jeu (OvercookedAI + présent
 ## Documentation
 Mise en place d'un KanBan de tâches -> Modifier le gantt ensuite
 Schéma pro -> Rapport
-Schéma enfant -> Présentation
+Schéma "enfant" -> Présentation
 Explication benchmark -> Rapport
 OvercookedAI -> Présentation
 
