@@ -1,6 +1,7 @@
 from mario.engine import RunEngine
 from mario.algos.ppo import PPOAlgo
 from mario.envs.pettingzoo_env import PettingZooEnvWrapper
+from mario.algos.architectures import MLPArchitecture
 
 def main():
     # 1. On prépare le moteur (le cerveau qui gère la session)
@@ -8,14 +9,14 @@ def main():
 
     # 2. On définit l'algo (ton wrapper MARLlib)
     # On peut lui passer les hyperparamètres ici
-    ppo = PPOAlgo(hyperparams={
-        "core_arch": "mlp", 
-        "encode_layer": "128-128"
-    })
+    archi = MLPArchitecture(layers="128-128")
+    ppo = PPOAlgo(
+        architecture=archi,
+        )
 
     # 3. On définit l'environnement (ton wrapper Mario)
     # On lui donne les noms que MARLlib comprend (ex: mpe / simple_spread)
-    env_mario = PettingZooEnvWrapper(env_name="mpe", map_name="simple_spread")
+    env_mario = PettingZooEnvWrapper(env_name="mpe", map_name="simple_world_comm")
 
     # 4. On lance la machine !
     # Le moteur va appeler ppo.train(env_name="mpe", ...)
