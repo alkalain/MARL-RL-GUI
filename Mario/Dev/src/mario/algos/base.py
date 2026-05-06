@@ -19,3 +19,8 @@ class ArchitectureSupport(ABC):
     """Interface pour la structure du réseau de neurones (ex: CNN, MLP)."""
     def __init__(self, arch_type: str):
         self.type = arch_type
+
+    @abstractmethod
+    def to_marllib_config(self) -> dict:
+        """Retourne la config MARLlib prête à passer à build_model()."""
+        pass
