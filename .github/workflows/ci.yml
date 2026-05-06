@@ -1,0 +1,47 @@
+name: MARIO - Intégrations continues
+
+on:
+  push:
+    branches: 
+      - main
+      - 'Integration*'
+      - 'fonctionnalite/*'
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8"]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup des packages Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Installations des dépendances
+      run: |
+        # Installation de pip pour gérer les installations
+        python -m pip install --upgrade pip
+        # Installation du package pour tester le setup.py
+        pip install -e Mario/Dev/src/
+        # Installations minimales de dépendances afin que les imports ne plantent pas
+        pip install marllib pettingzoo[mpe]
+
+    - name: Analyse syntaxique du code
+      run: |
+        # Installation de flake8 ( Vérification de la syntaxe et conformité du code )
+        pip install flake8
+        # Interrompt le pipeline en cas d'erreurs logiques ou de syntaxes critiques
+        flake8 Mario/Dev/src/mario --count --select=E9,F63,F7,F82 --show-source --statistics
+
+    - name: Smoke Test Imports
+      run: |
+        # Vérifivation que les classes soient importables correctement
+        # ( sans erreur de dépendance ou de nommage de fichier )
+        python -c "from mario.engine import RunEngine; from mario.algos.ppo import PPOAlgo; print('Importations fonctionnelles !')"
