@@ -11,25 +11,25 @@ class RunEngine:
         self,
         env: MultiAgentEnv,
         algo: Algo,
-        architecture: ArchitectureSupport,
-        algo_hpo_space: AlgoHyperparametersResearchSpace,
-        archi_hpo_space: ArchiHyperparametersResearchSpace
+        architecture: ArchitectureSupport = None,
+        algo_hpo_space: AlgoHyperparametersResearchSpace = None,
+        archi_hpo_space: ArchiHyperparametersResearchSpace = None
     ) -> JointPolicy:
         
         print(f"--- [MARIO ENGINE] Démarrage de la session ---")
         
-        # 1. On initialise l'environnement
-        env.reset()
+        # Pour MARLlib, on va extraire les infos du wrapper env
+        # au lieu de faire env.reset() nous-mêmes
+        env_name = env.env_name # (là on part du principe que le wrapper a cet attribut là)
+        map_name = env.map_name
         
-        # 2. (Plus tard, Optuna interviendra ici avec les algo_hpo_space)
-        print(f"[MARIO ENGINE] Bypass Optuna pour l'instant (Architecture: {architecture.type})")
-        
-        # 3. On lance l'entrainement via notre wrapper d'algorithme
-        # On suppose que l'algo possède une méthode .train() (comme notre PPOAlgo)
-        policy = algo.train(env=env, total_timesteps=1000)
+        # On lance l'entraînement
+        # On adapte l'appel pour que l'algo reçoive ce dont il a besoin
+        policy = algo.train(
+            env_name=env_name, 
+            map_name=map_name, 
+            stop_criteria={"training_iteration": 10}
+        )
         
         print(f"--- [MARIO ENGINE] Entrainement terminé ! ---")
         return policy
-
-    def run_test(self, policy: JointPolicy, env: MultiAgentEnv) -> Stats:
-        pass
