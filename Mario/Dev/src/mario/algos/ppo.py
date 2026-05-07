@@ -1,5 +1,6 @@
 from marllib import marl
-from mario.algos.base import Algo, JointPolicy
+from mario.algos.base import Algo, JointPolicy, ArchitectureSupport
+from mario.algos.architectures import MLPArchitecture
 
 class MARLlibPolicy(JointPolicy):
     """
@@ -21,22 +22,31 @@ class MARLlibPolicy(JointPolicy):
 
 class PPOAlgo(Algo):
     """Configuration et logique d'entraînement via MARLlib."""
-    def __init__(self, hyperparams: dict = None):
+    def __init__(
+            self,
+            architecture: ArchitectureSupport = None,
+            hyperparams: dict = None,
+            ):
         super().__init__(algo_type="PPO (MARLlib)")
         # Paramètres par défaut si rien n'est fourni
-        self.hyperparams = hyperparams if hyperparams else {
-            "core_arch": "mlp",
-            "encode_layer": "128-128"
+        self.architecture = architecture or MLPArchitecture()
+
+        # Hyperparamètres algo (lr, batch, etc.) séparés de l'archi
+        self.hyperparams = hyperparams or {
+            "lr": 0.0005,
+            "train_batch_size": 512,
+            "num_sgd_iter": 10,
         }
 
-    def train(self, env_name: str, map_name: str, stop_criteria: dict = None) -> MARLlibPolicy:
+
+    def train(self, env_name: str, map_name: str, stop_criteria: dict = None, GPUs=0, Checkpoints_freq=1) -> MARLlibPolicy:
         """
         Lance la boucle d'apprentissage MARLlib.
         """
         if stop_criteria is None:
             stop_criteria = {"training_iteration": 10}
 
-        print(f"[MARIO] Initialisation de l'environnement {env_name}:{map_name}...")
+        print(f"[MARIO] Initialisation de l'environnement {env_name}:{map_name}| Archi: {self.architecture.type}")
         # 1. Configuration de l'environnement
         env = marl.make_env(environment_name=env_name, map_name=map_name)
 
@@ -44,14 +54,19 @@ class PPOAlgo(Algo):
         mappo = marl.algos.mappo(hyperparam_source=env_name)
 
         # 3. Construction du modèle avec l'architecture définie
-        model = marl.build_model(env, mappo, self.hyperparams)
+        arch_config = self.architecture.to_marllib_config()
+        print(f"[MARIO] Config architecture : {arch_config}")
+        model = marl.build_model(env, mappo, arch_config)
 
-        print(f"[MARIO] Début de l'entraînement MARLlib...")
         # 4. Lancement de l'entraînement
-        mappo.fit(env, model,
-                  stop=stop_criteria,
-                  local_mode=True,
-                  num_gpus=0,
-                  checkpoint_freq=1)
+        print(f"[MARIO] Début entraînement | Hyperparams algo : {self.hyperparams}")
+        mappo.fit(
+            env, model,
+            stop=stop_criteria,
+            local_mode=True,
+            num_gpus=GPUs,
+            checkpoint_freq=Checkpoints_freq,
+            **self.hyperparams
+            )
 
         return MARLlibPolicy(model, mappo, env)
