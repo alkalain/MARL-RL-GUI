@@ -24,7 +24,7 @@ def main():
     policy = engine.run_training(
         env=env_mario,
         algo=ppo,
-        architecture=None, # Pas encore utilisé
+        architecture=archi,
         algo_hpo_space=None, # Pas encore utilisé
         archi_hpo_space=None # Pas encore utilisé
     )
