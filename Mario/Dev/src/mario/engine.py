@@ -26,7 +26,8 @@ class RunEngine:
         algo: Algo,
         architecture: ArchitectureSupport = None,
         algo_hpo_space: AlgoHyperparametersResearchSpace = None,
-        archi_hpo_space: ArchiHyperparametersResearchSpace = None
+        archi_hpo_space: ArchiHyperparametersResearchSpace = None,
+        stop_criteria: dict = None
     ) -> JointPolicy:
         """
         Pilote une session complète d'entraînement automatique.
@@ -42,7 +43,8 @@ class RunEngine:
                 pour les paramètres de l'algorithme.
             archi_hpo_space (ArchiHyperparametersResearchSpace, optional): Espace de recherche 
                 pour les paramètres de l'architecture.
-
+            stop_criteria (dict, optional): Conditions d'arrêt de l'entraînement.
+        
         Returns:
             JointPolicy: La politique jointe résultante de l'entraînement, prête pour l'exécution.
         """
@@ -55,10 +57,11 @@ class RunEngine:
         map_name = env.map_name
         
         # Déclenchement de la routine d'apprentissage
+        # On transmet désormais stop_criteria s'il est fourni
         policy = algo.train(
             env_name=env_name, 
             map_name=map_name, 
-            stop_criteria={"training_iteration": 10}
+            stop_criteria=stop_criteria
         )
         
         print(f"--- [MARIO ENGINE] Entrainement terminé ! ---")
