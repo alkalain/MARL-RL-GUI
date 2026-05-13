@@ -23,7 +23,7 @@ class RunEngine:
     def run_training(
         self,
         env: MultiAgentEnv,
-        algo: Algo,
+        algorithme: Algo,
         architecture: ArchitectureSupport = None,
         algo_hpo_space: AlgoHyperparametersResearchSpace = None,
         archi_hpo_space: ArchiHyperparametersResearchSpace = None,
@@ -56,11 +56,11 @@ class RunEngine:
         env_name = env.env_name 
         map_name = env.map_name
 
-        algorithme = algo(architecture, algo_hpo_space)
+        algorithme = algorithme(architecture, algo_hpo_space)
 
         # On lance l'entraînement
         # On adapte l'appel pour que l'algo reçoive ce dont il a besoin
-        policy = algo.train(
+        policy = algorithme.train(
             env_name=env_name,
             map_name=map_name,
             stop_criteria={"training_iteration": 10},
