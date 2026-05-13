@@ -32,7 +32,7 @@ def main():
     print("Démarrage du test d'intégration...")
     policy = engine.run_training(
         env=env_mario,
-        algo=ppo,
+        algorithme=PPOAlgo,
         architecture=archi,
         algo_hpo_space=None, # Pas encore utilisé
         archi_hpo_space=None # Pas encore utilisé
