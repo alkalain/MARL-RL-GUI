@@ -1,7 +1,6 @@
 import os
 import glob
 from pathlib import Path
-from marllib import marl
 from mario.algos.base import JointPolicy
 
 class MARLlibPolicy(JointPolicy):
