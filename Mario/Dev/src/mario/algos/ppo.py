@@ -1,6 +1,9 @@
 from marllib import marl
 from mario.algos.base import Algo, JointPolicy, ArchitectureSupport
 from mario.algos.architectures import MLPArchitecture
+import os
+import glob
+from pathlib import Path
 
 class MARLlibPolicy(JointPolicy):
     """
@@ -10,7 +13,7 @@ class MARLlibPolicy(JointPolicy):
     Cette classe encapsule les composants nécessaires (modèle, algorithme, environnement) 
     pour permettre l'execution et le rendu des agents après leur entraînement.
     """
-    def __init__(self, model, algo_instance, env_instance):
+    def __init__(self, model, algo_instance, env_instance, exp_pattern):
         """
         Initialise le conteneur de la politique entraînée.
 
@@ -23,6 +26,7 @@ class MARLlibPolicy(JointPolicy):
         self.model = model
         self.algo = algo_instance
         self.env = env_instance
+        self.exp_pattern = exp_pattern
 
     def predict(self, observations):
         """
@@ -96,7 +100,7 @@ class PPOAlgo(Algo):
 
         print(f"[MARIO] Initialisation de l'environnement {env_name}:{map_name}| Archi: {self.architecture.type}")
         # 1. Configuration de l'environnement
-        env = marl.make_env(environment_name=env_name, map_name=map_name)
+        env_output = marl.make_env(environment_name=env_name, map_name=map_name)
 
         # 2. Configuration de l'algorithme (MA-PPO est l'implémentation standard)
         mappo = marl.algos.mappo(hyperparam_source=env_name)
@@ -104,17 +108,28 @@ class PPOAlgo(Algo):
         # 3. Construction du modèle avec l'architecture définie
         arch_config = self.architecture.to_marllib_config()
         print(f"[MARIO] Config architecture : {arch_config}")
-        model = marl.build_model(env, mappo, arch_config)
+        model = marl.build_model(env_output, mappo, arch_config)
 
         # 4. Lancement de l'entraînement
         print(f"[MARIO] Début entraînement | Hyperparams algo : {self.hyperparams}")
         mappo.fit(
-            env, model,
+            env_output, model,
             stop=stop_criteria,
             local_mode=True,
             num_gpus=GPUs,
             checkpoint_freq=Checkpoints_freq,
             **self.hyperparams
             )
+        
+        print("[MARIO] Entraînement terminé, préparation de la politique via chargement...")
+            
+        # On s'assure d'extraire l'environnement pour la politique
+        if isinstance(env_output, tuple):
+            env = env_output[0]
+        else:
+            env = env_output
+        
+        exp_pattern = f"mappo_{self.architecture.type.lower()}_{map_name}/MAPPOTrainer_*"
 
-        return MARLlibPolicy(model, mappo, env)
+        # On passe None à la place de model pour forcer MARLlibPolicy à charger le checkpoint
+        return MARLlibPolicy(None, mappo, env, exp_pattern)
