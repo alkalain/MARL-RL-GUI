@@ -1,3 +1,6 @@
+import os
+import glob
+from pathlib import Path
 from marllib import marl
 from mario.algos.base import Algo, ArchitectureSupport
 from mario.algos.architectures import MLPArchitecture
@@ -58,7 +61,6 @@ class PPOAlgo(Algo):
         """
         if stop_criteria is None:
             stop_criteria = {"training_iteration": 10}
-
         print(f"[MARIO] Initialisation de l'environnement {env_name}:{map_name}| Archi: {self.architecture.type}")
         # 1. Configuration de l'environnement
         env_output = marl.make_env(environment_name=env_name, map_name=map_name)
