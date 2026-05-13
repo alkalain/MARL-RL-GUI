@@ -4,22 +4,31 @@ from mario.envs.pettingzoo_env import PettingZooEnvWrapper
 from mario.algos.architectures import MLPArchitecture
 
 def main():
-    # 1. On prépare le moteur (le cerveau qui gère la session)
+    """
+    Script de test d'intégration pour valider le flux de travail de MARIO.
+    
+    Cette fonction illustre l'assemblage complet des composants :
+    1. Initialisation du moteur d'exécution.
+    2. Configuration de l'algorithme et de son architecture.
+    3. Définition de l'environnement de simulation.
+    4. Lancement de la procédure d'apprentissage.
+    """
+    # 1. Instanciation du moteur (coordinateur de la session)
     engine = RunEngine()
 
-    # 2. On définit l'algo (ton wrapper MARLlib)
-    # On peut lui passer les hyperparamètres ici
+    # 2. Configuration de l'algorithme (Adaptateur MARLlib)
+    # Définition d'une architecture MLP avec deux couches cachées de 128 neurones
     archi = MLPArchitecture(layers="128-128")
     ppo = PPOAlgo(
         architecture=archi,
         )
 
-    # 3. On définit l'environnement (ton wrapper Mario)
-    # On lui donne les noms que MARLlib comprend (ex: mpe / simple_spread)
+    # 3. Préparation de l'environnement via le wrapper MARIO
+    # On utilise ici un scénario multi-agent de type 'MPE' (Multi-Agent Particle Environments)
     env_mario = PettingZooEnvWrapper(env_name="mpe", map_name="simple_world_comm")
 
-    # 4. On lance la machine !
-    # Le moteur va appeler ppo.train(env_name="mpe", ...)
+    # 4. Exécution du processus d'apprentissage
+    # Le moteur orchestre l'appel à la méthode de train de l'algorithme choisi
     print("Démarrage du test d'intégration...")
     policy = engine.run_training(
         env=env_mario,
