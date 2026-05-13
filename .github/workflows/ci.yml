@@ -29,9 +29,8 @@ jobs:
         # Installation de pip pour gérer les installations
         python -m pip install --upgrade pip
         # Installations et gestion des versions
-        pip install setuptools==65.5.0 pip==21 wheel==0.38.0 six grpcio
-        pip install marllib ray==1.8.0 pettingzoo[mpe] gym==0.21.0 "numpy==1.23.5"
-        pip install "protobuf==3.19.6"
+        pip install setuptools==65.5.0 pip==21 wheel==0.38.0
+        pip install -r requirements_ci.txt
         # Installation du package pour tester le setup.py
         pip install -e Mario/Dev/src/
         # Installations minimales de dépendances afin que les imports ne plantent pas
