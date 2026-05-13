@@ -29,6 +29,11 @@ def main():
         archi_hpo_space=None # Pas encore utilisé
     )
 
+    policy.render(
+        #env=env_mario,
+        #model=policy.model,
+        save_mode="human")
+
     print("Test réussi ! Politique générée.")
 
 if __name__ == "__main__":
