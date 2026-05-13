@@ -53,3 +53,11 @@ jobs:
         # Vérifivation que les classes soient importables correctement
         # ( sans erreur de dépendance ou de nommage de fichier )
         python -c "from mario.engine import RunEngine; from mario.algos.ppo import PPOAlgo; print('Importations fonctionnelles !')"
+
+    - name: Test d'intégration- Entraînement complet (3 itérations)
+      env:
+        PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
+      run: |
+        # On lance le script de test que nous venons de stabiliser
+        # Vérification du bon fonctionnement du train() et du predict() (vide pour l'instant) passent bien
+        python Mario/Dev/src/tests/pipeline_test.py
