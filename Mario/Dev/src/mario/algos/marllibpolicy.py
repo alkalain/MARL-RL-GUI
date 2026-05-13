@@ -21,21 +21,48 @@ class MARLlibPolicy(JointPolicy):
         self.model pour calculer les actions.
         """
         return {}
+    
+    def _find_exp_results_dir(self) -> Path:
+        """
+        Remonte depuis __file__ jusqu'à trouver tous les dossiers
+        exp_results/ dans l'arborescence du projet.
+        """
+        # Remonte jusqu'à la racine du projet (5 niveaux max)
+        current = Path(__file__).resolve().parent
+        for _ in range(6):
+            candidate = current / "exp_results"
+            if candidate.exists():
+                return candidate
+            current = current.parent
+        raise FileNotFoundError(
+            f"Aucun dossier exp_results/ trouvé en remontant depuis {Path(__file__).resolve().parent}"
+        )
 
     def render(self,env=None,model=None,save_mode: str = "human"):
         """Utilise env et model stockés si non fournis."""
-        env = env or self.env
+        env = env or self.env or marl.make_env(
+        environment_name=self.env_name,
+        map_name=self.map_name
+    )
         model = model or self.model
 
-        script_dir = Path(__file__).resolve().parent
-        exp_results_dir = script_dir.parent.parent / "exp_results"
-
+        exp_results_dir = self._find_exp_results_dir()
         pattern = str(exp_results_dir / self.exp_pattern)
         run_dirs = glob.glob(pattern)
+        if not run_dirs:
+        # ✅ Si pas trouvé, cherche dans TOUS les exp_results/ du projet
+            project_root = Path(__file__).resolve().parent
+            for _ in range(5):
+                project_root = project_root.parent
+                all_results = list(project_root.rglob(self.exp_pattern))
+                if all_results:
+                    run_dirs = [str(p) for p in all_results]
+                    break
 
         if not run_dirs:
             raise FileNotFoundError(
-                f"Aucun résultat trouvé.\nPattern : {pattern}"
+                f"Aucun résultat trouvé.\nPattern : {self.exp_pattern}\n"
+                f"Cherché depuis : {Path(__file__).resolve().parent}"
             )
 
         base_path = max(run_dirs, key=os.path.getctime)
