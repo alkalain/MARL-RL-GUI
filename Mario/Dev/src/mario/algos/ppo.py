@@ -1,24 +1,7 @@
 from marllib import marl
-from mario.algos.base import Algo, JointPolicy, ArchitectureSupport
+from mario.algos.base import Algo, ArchitectureSupport
 from mario.algos.architectures import MLPArchitecture
-
-class MARLlibPolicy(JointPolicy):
-    """
-    Wrapper pour transformer le résultat de MARLlib en une 
-    politique compatible avec l'interface MARIO.
-    """
-    def __init__(self, model, algo_instance, env_instance):
-        super().__init__(policy_type="MARLlib_Policy")
-        self.model = model
-        self.algo = algo_instance
-        self.env = env_instance
-
-    def predict(self, observations):
-        """
-        À implémenter plus tard : utilisera self.algo.render ou 
-        self.model pour calculer les actions.
-        """
-        return {}
+from mario.algos.marllibpolicy import MARLlibPolicy
 
 class PPOAlgo(Algo):
     """Configuration et logique d'entraînement via MARLlib."""
