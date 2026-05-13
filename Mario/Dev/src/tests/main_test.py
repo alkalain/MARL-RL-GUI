@@ -35,7 +35,7 @@ def main():
         algo=ppo,
         architecture=None, # Configuration optionnelle si déjà définie dans l'objet ppo
         algo_hpo_space=None, # Emplacement réservé pour l'optimisation future
-        archi_hpo_space=None # Emplacement réservé pour l'optimisation future
+        archi_hpo_space=None, # Emplacement réservé pour l'optimisation future
         stop_criteria={"training_iteration": 3} 
     )
 
