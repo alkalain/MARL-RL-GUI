@@ -52,4 +52,6 @@ class PPOAlgo(Algo):
             **self.hyperparams
             )
 
-        return MARLlibPolicy(model, mappo, env)
+        exp_pattern = f"mappo_{self.architecture.type.lower()}_{map_name}/MAPPOTrainer_*"
+
+        return MARLlibPolicy(model, mappo, env, exp_pattern)

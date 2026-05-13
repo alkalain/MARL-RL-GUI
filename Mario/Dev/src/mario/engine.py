@@ -40,3 +40,7 @@ class RunEngine:
 
         print(f"--- [MARIO ENGINE] Entrainement terminé ! ---")
         return policy
+
+    def run_render(self,policy,env,save_mode="human"):
+        policy.render(env=env, model=policy.model, save_mode=save_mode)
+        return True
