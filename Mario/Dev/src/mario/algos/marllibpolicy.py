@@ -27,7 +27,6 @@ class MARLlibPolicy(JointPolicy):
         Remonte depuis __file__ jusqu'à trouver tous les dossiers
         exp_results/ dans l'arborescence du projet.
         """
-        # Remonte jusqu'à la racine du projet (5 niveaux max)
         current = Path(__file__).resolve().parent
         for _ in range(6):
             candidate = current / "exp_results"
@@ -50,7 +49,6 @@ class MARLlibPolicy(JointPolicy):
         pattern = str(exp_results_dir / self.exp_pattern)
         run_dirs = glob.glob(pattern)
         if not run_dirs:
-        # ✅ Si pas trouvé, cherche dans TOUS les exp_results/ du projet
             project_root = Path(__file__).resolve().parent
             for _ in range(5):
                 project_root = project_root.parent
