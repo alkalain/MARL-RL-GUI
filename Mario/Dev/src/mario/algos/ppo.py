@@ -6,41 +6,6 @@ from mario.algos.base import Algo, ArchitectureSupport
 from mario.algos.architectures import MLPArchitecture
 from mario.algos.marllibpolicy import MARLlibPolicy
 
-class MARLlibPolicy(JointPolicy):
-    """
-    Classe assurant la compatibilité entre les modèles produits par MARLlib 
-    et l'interface de décision définie par MARIO.
-
-    Cette classe encapsule les composants nécessaires (modèle, algorithme, environnement) 
-    pour permettre l'execution et le rendu des agents après leur entraînement.
-    """
-    def __init__(self, model, algo_instance, env_instance):
-        """
-        Initialise le conteneur de la politique entraînée.
-
-        Args:
-            model: Objet réseau de neurones (Policy/Model) généré par MARLlib.
-            algo_instance: Instance de l'algorithme ayant servi à l'apprentissage.
-            env_instance: Référence vers l'environnement de simulation associé.
-        """
-        super().__init__(policy_type="MARLlib_Policy")
-        self.model = model
-        self.algo = algo_instance
-        self.env = env_instance
-
-    def predict(self, observations):
-        """
-        Calcule les actions des agents à partir d'un état d'observation.
-
-        Note: L'implémentation actuelle est un substitut (placeholder). 
-        À terme, cette méthode exploitera les capacités d'inférence de self.model 
-        ou les routines de rendu de self.algo.
-
-        Returns:
-            dict: Dictionnaire vide dans l'attente de l'implémentation du moteur d'inférence.
-        """
-        return {}
-
 class PPOAlgo(Algo):
     """
     Implémentation de l'algorithme Proximal Policy Optimization (PPO) 
