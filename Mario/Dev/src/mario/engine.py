@@ -2,6 +2,7 @@ from mario.envs.base import MultiAgentEnv
 from mario.algos.base import Algo, ArchitectureSupport, JointPolicy
 from mario.hpo.spaces import AlgoHyperparametersResearchSpace, ArchiHyperparametersResearchSpace
 from mario.utils.stats import Stats
+from marllib import marl
 
 class RunEngine:
     """
