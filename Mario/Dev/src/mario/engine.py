@@ -24,7 +24,7 @@ class RunEngine:
     def run_training(
         self,
         env: MultiAgentEnv,
-        algo: Algo,
+        algorithme: Algo,
         architecture: ArchitectureSupport = None,
         algo_hpo_space: AlgoHyperparametersResearchSpace = None,
         archi_hpo_space: ArchiHyperparametersResearchSpace = None,
@@ -57,11 +57,11 @@ class RunEngine:
         env_name = env.env_name 
         map_name = env.map_name
 
-        algorithme = algo(architecture, algo_hpo_space)
+        algorithme = algorithme(architecture, algo_hpo_space)
 
         # On lance l'entraînement
         # On adapte l'appel pour que l'algo reçoive ce dont il a besoin
-        policy = algo.train(
+        policy = algorithme.train(
             env_name=env_name,
             map_name=map_name,
             stop_criteria={"training_iteration": 10},
@@ -71,3 +71,44 @@ class RunEngine:
 
         print(f"--- [MARIO ENGINE] Entrainement terminé ! ---")
         return policy
+
+    def run_render(self,policy,env,save_mode="human"):
+        """
+        Exécute la visualisation d'une politique entraînée dans son environnement.
+
+        Cette méthode délègue l'affichage ou la génération de médias à l'objet
+        `policy`. Elle permet de voir les agents en action, soit en temps réel,
+        soit via l'exportation de fichiers vidéo/GIF.
+
+        Args:
+            policy (JointPolicy): La politique entraînée à visualiser (généralement
+                une instance de `MARLlibPolicy`). Elle doit posséder une méthode `.render()`.
+            env (MultiAgentEnv): L'environnement de simulation. Bien que certains
+                moteurs (comme MARLlib) recréent l'environnement en interne, il est
+                passé ici pour maintenir la cohérence avec l'interface MARIO.
+            save_mode (str, optional): Définit le mode de sortie de la visualisation.
+
+                - `"human"` (défaut) : Ouvre une fenêtre graphique pour un rendu en direct.
+                - `"video"` : Enregistre une vidéo au format `.mp4`.
+                - `"gif"` : Enregistre une animation au format `.gif`.
+
+        Returns:
+            bool: `True` si le processus de rendu s'est terminé avec succès.
+
+        Example:
+            ```python
+            engine = RunEngine()
+            # Visualisation directe
+            engine.run_render(trained_policy, my_env, save_mode="human")
+
+            # Exportation en vidéo
+            engine.run_render(trained_policy, my_env, save_mode="video")
+            ```
+
+        Note:
+            Pour les modes `"video"` et `"gif"`, les fichiers sont généralement
+            sauvegardés dans le dossier `renders/` à l'intérieur du répertoire
+            de l'expérience correspondante.
+        """
+        policy.render(env=env, model=policy.model, save_mode=save_mode)
+        return True
