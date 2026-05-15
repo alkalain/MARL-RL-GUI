@@ -29,8 +29,7 @@ class RunEngine:
         archi_hpo_space: ArchiHyperparametersResearchSpace = None,
         stop_criteria: dict = None,
         GPUs=0,
-        Checkpoints_freq=1,
-        stop_criteria: dict = None
+        Checkpoints_freq=1
     ) -> JointPolicy:
         """
         Pilote une session complète d'entraînement automatique.
