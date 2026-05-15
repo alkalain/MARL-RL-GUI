@@ -33,9 +33,9 @@ def main():
     policy = engine.run_training(
         env=env_mario,
         algo=ppo,
-        architecture=None, # Configuration optionnelle si déjà définie dans l'objet ppo
-        algo_hpo_space=None, # Emplacement réservé pour l'optimisation future
-        archi_hpo_space=None # Emplacement réservé pour l'optimisation future
+        architecture=archi,
+        algo_hpo_space=None, # Pas encore utilisé
+        archi_hpo_space=None # Pas encore utilisé
     )
 
     print("Test réussi ! Politique générée.")
