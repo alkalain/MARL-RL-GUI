@@ -2,6 +2,7 @@ from mario.envs.base import MultiAgentEnv
 from mario.algos.base import Algo, ArchitectureSupport, JointPolicy
 from mario.hpo.spaces import AlgoHyperparametersResearchSpace, ArchiHyperparametersResearchSpace
 from mario.utils.stats import Stats
+from marllib import marl
 
 class RunEngine:
     """
@@ -27,7 +28,9 @@ class RunEngine:
         architecture: ArchitectureSupport = None,
         algo_hpo_space: AlgoHyperparametersResearchSpace = None,
         archi_hpo_space: ArchiHyperparametersResearchSpace = None,
-        stop_criteria: dict = None
+        stop_criteria: dict = None,
+        GPUs=0,
+        Checkpoints_freq=1
     ) -> JointPolicy:
         """
         Pilote une session complète d'entraînement automatique.
@@ -55,14 +58,18 @@ class RunEngine:
         # Note : On s'appuie sur les attributs spécifiques au wrapper (ex: PettingZooEnvWrapper)
         env_name = env.env_name 
         map_name = env.map_name
-        
-        # Déclenchement de la routine d'apprentissage
-        # On transmet désormais stop_criteria s'il est fourni
+
+        algorithme = algo(architecture, algo_hpo_space)
+
+        # On lance l'entraînement
+        # On adapte l'appel pour que l'algo reçoive ce dont il a besoin
         policy = algo.train(
-            env_name=env_name, 
-            map_name=map_name, 
-            stop_criteria=stop_criteria
+            env_name=env_name,
+            map_name=map_name,
+            stop_criteria=stop_criteria,
+            GPUs=GPUs,
+            Checkpoints_freq=Checkpoints_freq,
         )
-        
+
         print(f"--- [MARIO ENGINE] Entrainement terminé ! ---")
         return policy
