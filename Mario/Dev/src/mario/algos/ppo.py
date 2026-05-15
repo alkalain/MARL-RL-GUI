@@ -92,5 +92,4 @@ class PPOAlgo(Algo):
         
         exp_pattern = f"mappo_{self.architecture.type.lower()}_{map_name}/MAPPOTrainer_*"
 
-        # On passe None à la place de model pour forcer MARLlibPolicy à charger le checkpoint
-        return MARLlibPolicy(None, mappo, env, exp_pattern)
+        return MARLlibPolicy(model, mappo, env, exp_pattern)
