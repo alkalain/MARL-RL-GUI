@@ -32,7 +32,7 @@ def main():
     print("Démarrage du test d'intégration...")
     policy = engine.run_training(
         env=env_mario,
-        algo=ppo,
+        algorithme=PPOAlgo,
         architecture=None, # Configuration optionnelle si déjà définie dans l'objet ppo
         algo_hpo_space=None, # Emplacement réservé pour l'optimisation future
         archi_hpo_space=None, # Emplacement réservé pour l'optimisation future
@@ -55,6 +55,13 @@ def main():
     obs = {agent: None for agent in ["agent_0"]} # Format d'entrée fictif
     actions = policy.predict(obs)
     print(f"Actions calculées : {actions}")
+
+    policy.render(
+        #env=env_mario,
+        #model=policy.model,
+        save_mode="human")
+
+    print("Execution du render réussi.")
 
     print("Test réussi ! Flux opérationnel.")
 
