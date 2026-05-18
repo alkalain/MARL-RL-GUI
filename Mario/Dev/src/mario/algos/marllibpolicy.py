@@ -237,15 +237,10 @@ class MARLlibPolicy(JointPolicy):
             FileNotFoundError: Si aucun dossier `exp_results/` n'est trouvé
                 avant d'atteindre la racine du système de fichiers.
         """
-        current = Path(__file__).resolve().parent
-        while current != current.parent:
-            candidate = current / "exp_results"
-            if candidate.exists():
-                return candidate
-            current = current.parent
-        raise FileNotFoundError(
-            f"Aucun dossier exp_results/ trouvé depuis {Path(__file__).resolve().parent}"
-        )
+        src_dir = Path(__file__).resolve().parent.parent.parent
+        exp_results = src_dir / "exp_results"
+        exp_results.mkdir(exist_ok=True)  # crée le dossier si absent
+        return exp_results
 
     def _recreate_env(self, base_path: Path):
         """Recrée l'environnement MARLlib depuis `params.json`.
