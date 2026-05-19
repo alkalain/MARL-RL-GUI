@@ -1,3 +1,10 @@
+import sys
+from pathlib import Path
+
+# Ajoute Mario/Dev/src/ au path quel que soit l'endroit depuis lequel on lance
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+
 from mario.engine import RunEngine
 from mario.algos.ppo import PPOAlgo
 from mario.envs.pettingzoo_env import PettingZooEnvWrapper

@@ -1,3 +1,5 @@
+import os
+os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from mario.envs.base import MultiAgentEnv
 from mario.algos.base import Algo, ArchitectureSupport, JointPolicy
 from mario.hpo.spaces import AlgoHyperparametersResearchSpace, ArchiHyperparametersResearchSpace
