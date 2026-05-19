@@ -1,3 +1,5 @@
+import os
+os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from mario.envs.base import MultiAgentEnv
 from mario.algos.base import Algo, ArchitectureSupport, JointPolicy
 from mario.hpo.spaces import AlgoHyperparametersResearchSpace, ArchiHyperparametersResearchSpace
@@ -28,6 +30,7 @@ class RunEngine:
         architecture: ArchitectureSupport = None,
         algo_hpo_space: AlgoHyperparametersResearchSpace = None,
         archi_hpo_space: ArchiHyperparametersResearchSpace = None,
+        stop_criteria: dict = None,
         GPUs=0,
         Checkpoints_freq=1
     ) -> JointPolicy:
@@ -45,7 +48,8 @@ class RunEngine:
                 pour les paramètres de l'algorithme.
             archi_hpo_space (ArchiHyperparametersResearchSpace, optional): Espace de recherche 
                 pour les paramètres de l'architecture.
-
+            stop_criteria (dict, optional): Conditions d'arrêt de l'entraînement.
+        
         Returns:
             JointPolicy: La politique jointe résultante de l'entraînement, prête pour l'exécution.
         """
@@ -64,7 +68,7 @@ class RunEngine:
         policy = algorithme.train(
             env_name=env_name,
             map_name=map_name,
-            stop_criteria={"training_iteration": 10},
+            stop_criteria=stop_criteria,
             GPUs=GPUs,
             Checkpoints_freq=Checkpoints_freq,
         )

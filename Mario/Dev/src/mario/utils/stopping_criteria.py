@@ -1,11 +1,12 @@
 class TrainingParamsStop:
     """
     Gestionnaire des critères d'arrêt pour les sessions d'apprentissage.
-    
-    Cette classe définit les conditions permettant d'interrompre un entraînement, 
-    soit par l'atteinte d'un objectif, soit via un mécanisme d'élagage (pruning) 
+
+    Cette classe définit les conditions permettant d'interrompre un entraînement,
+    soit par l'atteinte d'un objectif, soit via une analyse comparative (pruning)
     pour stopper les essais dont les performances sont jugées insuffisantes.
     """
+
     def __init__(self, stop_type: str):
         """
         Initialise le critère d'arrêt.
