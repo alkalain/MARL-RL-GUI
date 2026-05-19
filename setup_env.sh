@@ -39,7 +39,7 @@ pip install marllib pettingzoo[mpe]
 pip install pdoc
 
 echo "======== Installation terminée avec succès ! ========"
-echo "Pour activer ton environnement dans ton terminal actuel, placez vous d'abord dans le répertoire Mario/ :"
+echo "Pour activer l'environnement dans votre terminal actuel, placez vous d'abord dans le répertoire Mario/ :"
 echo "cd Mario/"
 
 echo "Puis lancez la commande d'activation de l'environnement :"
