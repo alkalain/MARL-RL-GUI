@@ -34,7 +34,7 @@ import glob
 import json
 from marllib import marl
 from pathlib import Path
-from mario.algos.base import JointPolicy
+from mario.algos.base import JointPolicy, patch_marllib
 # note pour plus tard  "pyglet==1.5.27" à ajouter à la doc
 # meme chose pour "Pillow==9.5.0"
 class MARLlibPolicy(JointPolicy):
@@ -129,7 +129,7 @@ class MARLlibPolicy(JointPolicy):
             policy.render(save_mode="gif")       # → renders/render_checkpoint_10.gif
             ```
         """
-
+        patch_marllib()
         model = model or self.model
 
         exp_results_dir = self._find_exp_results_dir()

@@ -2,7 +2,7 @@ import os
 import glob
 from pathlib import Path
 from marllib import marl
-from mario.algos.base import Algo, ArchitectureSupport
+from mario.algos.base import Algo, ArchitectureSupport, patch_marllib
 from mario.algos.architectures import MLPArchitecture
 from mario.algos.marllibpolicy import MARLlibPolicy
 class PPOAlgo(Algo):
@@ -59,6 +59,7 @@ class PPOAlgo(Algo):
         Returns:
             MARLlibPolicy: Une instance prête à l'emploi contenant le modèle entraîné.
         """
+        patch_marllib()
         if stop_criteria is None:
             stop_criteria = {"training_iteration": 10}
         print(f"[MARIO] Initialisation de l'environnement {env_name}:{map_name}| Archi: {self.architecture.type}")
