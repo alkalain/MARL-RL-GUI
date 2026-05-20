@@ -41,7 +41,9 @@ class RunEngine:
         et lance la procédure d'apprentissage pour générer une politique de décision.
 
         Args:
-            env (MultiAgentEnv): L'environnement de simulation cible.
+            env (MultiAgentEnv): L'environnement de simulation cible.Ses propriétés
+                fondamentales (`env_name`, `map_name`) ainsi que le dictionnaire de paramètres
+                dynamiques (`env_kwargs`) en sont extraits pour être injectés dans l'algorithme.
             algo (Algo): L'algorithme d'apprentissage à utiliser.
             architecture (ArchitectureSupport, optional): La configuration du réseau de neurones.
             algo_hpo_space (AlgoHyperparametersResearchSpace, optional): Espace de recherche 
@@ -58,7 +60,8 @@ class RunEngine:
         
         # Extraction des identifiants via le wrapper d'environnement
         # Note : On s'appuie sur les attributs spécifiques au wrapper (ex: PettingZooEnvWrapper)
-        env_name = env.env_name 
+        env_name = env.env_name
+        env_kwargs = env.env_kwargs
         map_name = env.map_name
 
         algorithme = algorithme(architecture, algo_hpo_space)
@@ -68,6 +71,7 @@ class RunEngine:
         policy = algorithme.train(
             env_name=env_name,
             map_name=map_name,
+            env_kwargs=env_kwargs,
             stop_criteria=stop_criteria,
             GPUs=GPUs,
             Checkpoints_freq=Checkpoints_freq,
