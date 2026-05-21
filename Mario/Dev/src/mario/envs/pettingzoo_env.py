@@ -8,21 +8,22 @@ class PettingZooEnvWrapper(ParallelEnv):
     de notre moteur. Elle stocke les identifiants nécessaires pour que MARLlib 
     puisse instancier l'environnement au moment de l'entraînement.
     """
-    def __init__(self, env_name: str, map_name: str):
+    def __init__(self, env_name: str, map_name: str, **kwargs):
         """
         Initialise le wrapper avec les références de l'environnement.
 
         Args:
             env_name (str): Nom de l'environnement PettingZoo (ex: 'mpe').
             map_name (str): Nom du scénario spécifique (ex: 'simple_adversary_v3').
+            **kwargs: Tous les paramètres supplémentaires spécifiques au scénario
+                (ex: num_good=3, max_cycles=25, continuous_actions=False).
         """
         super().__init__(env_type="PettingZoo")
         
         self.env_name = env_name 
-        self.map_name = map_name 
-        
-        # Instance interne de l'environnement, initialisée à None par défaut.
-        # Note : MARLlib gère généralement sa propre instanciation via marl.make_env().
+        self.map_name = map_name
+        self.env_kwargs = kwargs
+
         self.env = None
 
     def reset(self):

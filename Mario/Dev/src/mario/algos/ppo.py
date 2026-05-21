@@ -2,7 +2,7 @@ import os
 import glob
 from pathlib import Path
 from marllib import marl
-from mario.algos.base import Algo, ArchitectureSupport
+from mario.algos.base import Algo, ArchitectureSupport, patch_marllib
 from mario.algos.architectures import MLPArchitecture
 from mario.algos.marllibpolicy import MARLlibPolicy
 class PPOAlgo(Algo):
@@ -38,32 +38,37 @@ class PPOAlgo(Algo):
         }
 
 
-    def train(self, env_name: str, map_name: str, stop_criteria: dict = None, GPUs=0, Checkpoints_freq=1) -> MARLlibPolicy:
+    def train(self, env_name: str, map_name: str, stop_criteria: dict = None,env_kwargs: dict = None, GPUs=0, Checkpoints_freq=1) -> MARLlibPolicy:
         """
         Exécute le processus complet d'apprentissage par renforcement multi-agent.
 
         La méthode suit quatre étapes :
-        1. Instanciation de l'environnement via l'interface MARLlib.
-        2. Configuration de l'algorithme MA-PPO (Multi-Agent PPO).
-        3. Construction du modèle neuronal selon l'architecture spécifiée.
-        4. Lancement de l'optimisation (méthode fit).
+        1. Application du monkey-patch pour autoriser les arguments d'environnement personnalisés.
+        2. Instanciation de l'environnement via l'interface MARLlib.
+        3. Configuration de l'algorithme MA-PPO (Multi-Agent PPO).
+        4. Construction du modèle neuronal selon l'architecture spécifiée.
+        5. Lancement de l'optimisation (méthode fit).
 
         Args:
             env_name (str): Identifiant de l'environnement (ex: 'pettingzoo').
             map_name (str): Scénario spécifique au sein de l'environnement.
             stop_criteria (dict): Conditions d'arrêt de l'entraînement. 
                 Défaut : 10 itérations.
+            env_kwargs (dict, optional): Paramètres dynamiques et spécifiques à configurer dans
+                l'environnement (ex: `num_good`, `num_adversaries`). Pris en charge de manière
+                transparente grâce au court-circuitage de la validation stricte de MARLlib.
             GPUs (int): Nombre de ressources graphiques allouées.
             Checkpoints_freq (int): Fréquence de sauvegarde de l'état du modèle.
 
         Returns:
             MARLlibPolicy: Une instance prête à l'emploi contenant le modèle entraîné.
         """
+        patch_marllib()
         if stop_criteria is None:
             stop_criteria = {"training_iteration": 10}
         print(f"[MARIO] Initialisation de l'environnement {env_name}:{map_name}| Archi: {self.architecture.type}")
         # 1. Configuration de l'environnement
-        env_output = marl.make_env(environment_name=env_name, map_name=map_name)
+        env_output = marl.make_env(environment_name=env_name, map_name=map_name, **env_kwargs)
 
         # 2. Configuration de l'algorithme (MA-PPO est l'implémentation standard)
         mappo = marl.algos.mappo(hyperparam_source=env_name)

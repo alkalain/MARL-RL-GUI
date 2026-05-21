@@ -34,7 +34,7 @@ import glob
 import json
 from marllib import marl
 from pathlib import Path
-from mario.algos.base import JointPolicy
+from mario.algos.base import JointPolicy, patch_marllib
 # note pour plus tard  "pyglet==1.5.27" à ajouter à la doc
 # meme chose pour "Pillow==9.5.0"
 class MARLlibPolicy(JointPolicy):
@@ -129,7 +129,7 @@ class MARLlibPolicy(JointPolicy):
             policy.render(save_mode="gif")       # → renders/render_checkpoint_10.gif
             ```
         """
-
+        patch_marllib()
         model = model or self.model
 
         exp_results_dir = self._find_exp_results_dir()
@@ -258,12 +258,12 @@ class MARLlibPolicy(JointPolicy):
             Environnement MARLlib enregistré auprès de Ray Tune.
         """
         params = self._load_params(base_path)
-        env_args = params["model"]["custom_model_config"]["env_args"]
+        env_args = params["model"]["custom_model_config"]["env_args"].copy()
         env_name = params["model"]["custom_model_config"]["env"]
-        map_name = env_args["map_name"]
+        map_name = env_args.pop("map_name")
 
         print(f"[MARIO] Env recréé depuis params.json : {env_name}:{map_name}")
-        return marl.make_env(environment_name=env_name, map_name=map_name)
+        return marl.make_env(environment_name=env_name, map_name=map_name, **env_args)
 
     def _build_render_config(self, save_mode: str, output_path: str) -> dict:
         """Construit le dictionnaire de configuration pour le mode de rendu choisi.
