@@ -43,4 +43,4 @@ echo "Pour activer l'environnement dans votre terminal actuel, placez vous d'abo
 echo "cd Mario/"
 
 echo "Puis lancez la commande d'activation de l'environnement :"
-echo "source Mario/venv38/bin/activate"
+echo "source venv38/bin/activate"
