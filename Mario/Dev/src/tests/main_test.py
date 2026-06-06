@@ -1,4 +1,5 @@
 import sys
+import subprocess
 from pathlib import Path
 
 # Ajoute Mario/Dev/src/ au path quel que soit l'endroit depuis lequel on lance
@@ -20,6 +21,23 @@ def main():
     3. Définition de l'environnement de simulation.
     4. Lancement de la procédure d'apprentissage.
     """
+    # --- SÉLECTION DYNAMIQUE DE L'ENVIRONNEMENT ---
+    print("=== Configuration du test ===")
+    print("Choix possibles :")
+    print("1. mpe (Multi-Agent Particle Environments)")
+    print("2. lbf (Level Based Foraging)")
+    
+    choix = input("Entrez votre choix (lbf ou mpe) [Défaut: mpe] : ").strip().lower()
+    
+    # Configuration par défaut ou application du choix utilisateur
+    if choix == "lbf":
+        selected_env = "lbf"
+        selected_map = "Foraging-8x8-2p-2f-v2"
+    else:
+        selected_env = "mpe"
+        selected_map = "simple_world_comm"
+    print(f"-> Environnement sélectionné : {selected_env} ({selected_map})\n")
+    # -----------------------------------------------
     # 1. Instanciation du moteur (coordinateur de la session)
     engine = RunEngine()
 
@@ -32,7 +50,7 @@ def main():
 
     # 3. Préparation de l'environnement via le wrapper MARIO
     # On utilise ici un scénario simple 'simple_v3' pour accélérer les tests
-    env_mario = PettingZooEnvWrapper(env_name="mpe", map_name="simple_world_comm")
+    env_mario = PettingZooEnvWrapper(env_name=selected_env, map_name=selected_map)
 
     # 4. Exécution du processus d'apprentissage
     # Le moteur orchestre l'appel à la méthode de train de l'algorithme choisi
@@ -63,14 +81,49 @@ def main():
     actions = policy.predict(obs)
     print(f"Actions calculées : {actions}")
 
-    policy.render(
-        #env=env_mario,
-        #model=policy.model,
-        save_mode="human")
+    # Rendu en fonction du choix d'environnement
+    if choix == "lbf":
+        print("Démarrage du rendu visuel interactif pour LBF...")
+        try:
+            import time
+            import gym
+            import lbforaging
+
+            # 1. On recrée l'environnement natif pour éviter les conflits avec Ray
+            raw_env = gym.make("Foraging-8x8-2p-2f-v2")
+            obs = raw_env.reset()
+            
+            done = False
+            step = 0
+            
+            # 2. Boucle de simulation
+            while not done and step < 100:
+                # Utilise ta politique déjà entraînée (policy)
+                actions = policy.predict(obs) 
+                
+                # Step dans l'env
+                obs, rewards, dones, infos = raw_env.step(actions)
+                
+                # Rendu Pygame
+                raw_env.render(mode="human")
+                time.sleep(0.1)
+                
+                done = all(dones.values()) if isinstance(dones, dict) else all(dones)
+                step += 1
+            
+            raw_env.close()
+            print("Rendu visuel LBF terminé.")
+            
+        except Exception as e:
+            print(f"Erreur lors du rendu visuel : {e}")
+            print("Passage au flux standard.")
+    else:
+        # Rendu natif pour MPE
+        policy.render(save_mode="human")
 
     print("Execution du render réussi.")
 
-    print("Test réussi ! Flux opérationnel.")
+    print("Test réussi ! Flux operational.")
 
 if __name__ == "__main__":
     main()
