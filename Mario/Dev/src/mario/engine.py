@@ -32,7 +32,10 @@ class RunEngine:
         archi_hpo_space: ArchiHyperparametersResearchSpace = None,
         stop_criteria: dict = None,
         GPUs=0,
-        Checkpoints_freq=1
+        Checkpoints_freq=1,
+        n_trials: int = 10,
+        hpo_training_iterations: int = 5,
+        hpo_direction: str = "maximize",
     ) -> JointPolicy:
         """
         Pilote une session complète d'entraînement automatique.
@@ -64,18 +67,41 @@ class RunEngine:
         env_kwargs = env.env_kwargs
         map_name = env.map_name
 
-        algorithme = algorithme(architecture, algo_hpo_space)
+        # Exectution avec optimisation d'hyperparamètres (Optuna)
+        if algo_hpo_space is not None and archi_hpo_space is not None:
+            print("[MARIO ENGINE] Mode HPO activé (Optuna)")
+            from mario.hpo.optimizer import HPOptimizer
 
-        # On lance l'entraînement
-        # On adapte l'appel pour que l'algo reçoive ce dont il a besoin
-        policy = algorithme.train(
-            env_name=env_name,
-            map_name=map_name,
-            env_kwargs=env_kwargs,
-            stop_criteria=stop_criteria,
-            GPUs=GPUs,
-            Checkpoints_freq=Checkpoints_freq,
-        )
+            optimizer = HPOptimizer(
+                algo_class=algorithme,
+                algo_space=algo_hpo_space,
+                archi_space=archi_hpo_space,
+                env_name=env_name,
+                map_name=map_name,
+                env_kwargs=env_kwargs,
+                n_trials=n_trials,
+                training_iterations=hpo_training_iterations,
+                direction=hpo_direction,
+                stop_criteria=stop_criteria,
+                GPUs=GPUs,
+                Checkpoints_freq=Checkpoints_freq,
+            )
+            policy, study = optimizer.optimize()
+
+        # Execution sans optimiasation d'hyperparamètres
+        else:
+            print("[MARIO ENGINE] Mode entraînement standard")
+
+            algo_instance = algorithme(architecture, algo_hpo_space)
+
+            policy = algo_instance.train(
+                env_name=env_name,
+                map_name=map_name,
+                env_kwargs=env_kwargs,
+                stop_criteria=stop_criteria,
+                GPUs=GPUs,
+                Checkpoints_freq=Checkpoints_freq,
+            )
 
         print(f"--- [MARIO ENGINE] Entrainement terminé ! ---")
         return policy
