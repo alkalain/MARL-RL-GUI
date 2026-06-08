@@ -34,3 +34,29 @@ class MLPArchitecture(ArchitectureSupport):
             "core_arch": "mlp",
             "encode_layer": self.layers
         }
+
+class GRUArchitecture(ArchitectureSupport):
+    """Réseau récurrent GRU — adapté aux environnements partiellement observables."""
+    def __init__(self, layers: str = "128-128", hidden_state_size: int = 256):
+        super().__init__(arch_type="GRU")
+        self.layers = layers
+        self.hidden_state_size = hidden_state_size
+
+    def to_marllib_config(self) -> dict:
+        return {
+            "core_arch": "gru",
+            "encode_layer": self.layers,
+            "hidden_state_size": self.hidden_state_size,
+        }
+
+class CNNArchitecture(ArchitectureSupport):
+    """Réseau convolutif — adapté aux observations image."""
+    def __init__(self, layers: str = "64-64"):
+        super().__init__(arch_type="CNN")
+        self.layers = layers
+
+    def to_marllib_config(self) -> dict:
+        return {
+            "core_arch": "cnn",
+            "encode_layer": self.layers,
+        }
