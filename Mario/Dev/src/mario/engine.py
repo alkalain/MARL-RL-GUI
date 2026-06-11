@@ -1,4 +1,6 @@
 import os
+from typing import Optional
+
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from mario.envs.base import MultiAgentEnv
 from mario.algos.base import Algo, ArchitectureSupport, JointPolicy
@@ -34,6 +36,7 @@ class RunEngine:
         GPUs=0,
         Checkpoints_freq=1,
         n_trials: int = 10,
+        n_workers: Optional[int] = None,
         hpo_training_iterations: int = 5,
         hpo_direction: str = "maximize",
     ) -> JointPolicy:
@@ -80,6 +83,7 @@ class RunEngine:
                 map_name=map_name,
                 env_kwargs=env_kwargs,
                 n_trials=n_trials,
+                n_workers=n_workers,
                 training_iterations=hpo_training_iterations,
                 direction=hpo_direction,
                 stop_criteria=stop_criteria,
