@@ -34,7 +34,7 @@ import glob
 import json
 from marllib import marl
 from pathlib import Path
-from mario.algos.base import JointPolicy
+from mario.algos.policies import JointPolicy
 # note pour plus tard  "pyglet==1.5.27" à ajouter à la doc
 # meme chose pour "Pillow==9.5.0"
 class MARLlibPolicy(JointPolicy):
