@@ -1,10 +1,12 @@
 import os
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from mario.envs.base import MultiAgentEnv
-from mario.algos.base import Algo, ArchitectureSupport, JointPolicy
+from mario.algos.base import Algo, ArchitectureSupport
+from mario.algos.policies import JointPolicy
 from mario.hpo.spaces import AlgoHyperparametersResearchSpace, ArchiHyperparametersResearchSpace
 from mario.utils.stats import Stats
 from marllib import marl
+from typing import Union
 
 class RunEngine:
     """
@@ -26,48 +28,53 @@ class RunEngine:
     def run_training(
         self,
         env: MultiAgentEnv,
-        algorithme: Algo,
+        algorithme: Union[type, Algo],
         architecture: ArchitectureSupport = None,
         algo_hpo_space: AlgoHyperparametersResearchSpace = None,
         archi_hpo_space: ArchiHyperparametersResearchSpace = None,
         stop_criteria: dict = None,
-        GPUs=0,
-        Checkpoints_freq=1
+        GPUs: int = 0,
+        Checkpoints_freq: int = 1
     ) -> JointPolicy:
         """
-        Pilote une session complète d'entraînement automatique.
+        Pilote une session complète d'entraînement.
         
-        Cette méthode extrait les configurations nécessaires des composants fournis 
-        et lance la procédure d'apprentissage pour générer une politique de décision.
+        Cette méthode initialise l'algorithme s'il ne l'est pas encore, puis 
+        déclenche le cycle d'apprentissage standardisé.
 
         Args:
-            env (MultiAgentEnv): L'environnement de simulation cible.
-            algo (Algo): L'algorithme d'apprentissage à utiliser.
-            architecture (ArchitectureSupport, optional): La configuration du réseau de neurones.
-            algo_hpo_space (AlgoHyperparametersResearchSpace, optional): Espace de recherche 
-                pour les paramètres de l'algorithme.
-            archi_hpo_space (ArchiHyperparametersResearchSpace, optional): Espace de recherche 
-                pour les paramètres de l'architecture.
-            stop_criteria (dict, optional): Conditions d'arrêt de l'entraînement.
+            env (MultiAgentEnv): Environnement de simulation (doit posséder `env_name` et `map_name`).
+            algorithme (Union[type, Algo]): Classe ou instance de l'algorithme (ex: PPOAlgo).
+            architecture (ArchitectureSupport, optional): Configuration réseau si l'algo 
+                n'est pas encore instancié.
+            algo_hpo_space (AlgoHyperparametersResearchSpace, optional): Espace de recherche HPO.
+            archi_hpo_space (ArchiHyperparametersResearchSpace, optional): Espace de recherche HPO.
+            stop_criteria (dict, optional): Conditions d'arrêt (ex: {"training_iteration": 3}).
+            GPUs (int): Nombre de GPUs à allouer.
+            Checkpoints_freq (int): Fréquence de sauvegarde des modèles.
         
         Returns:
-            JointPolicy: La politique jointe résultante de l'entraînement, prête pour l'exécution.
+            JointPolicy: Politique entraînée prête à l'emploi.
         """
         
         print(f"--- [MARIO ENGINE] Démarrage de la session ---")
         
-        # Extraction des identifiants via le wrapper d'environnement
-        # Note : On s'appuie sur les attributs spécifiques au wrapper (ex: PettingZooEnvWrapper)
         env_name = env.env_name 
         map_name = env.map_name
 
-        algorithme = algorithme(architecture, algo_hpo_space)
+        # Instanciation dynamique si l'utilisateur a passé la classe (type)
+        if isinstance(algorithme, type):
+            # Si l'utilisateur passe une classe, on l'instancie avec l'archi fournie
+            algo_instance = algorithme(architecture=architecture)
+        else:
+            # Si l'utilisateur passe déjà une instance, on l'utilise telle quelle
+            algo_instance = algorithme
 
-        # On lance l'entraînement
-        # On adapte l'appel pour que l'algo reçoive ce dont il a besoin
-        policy = algorithme.train(
+        # Lancement de l'entraînement via l'interface standardisée de la classe Algo
+        policy = algo_instance.train(
             env_name=env_name,
             map_name=map_name,
+            architecture=algo_instance.architecture,
             stop_criteria=stop_criteria,
             GPUs=GPUs,
             Checkpoints_freq=Checkpoints_freq,
