@@ -21,7 +21,7 @@ def main():
     3. Définition de l'environnement de simulation.
     4. Lancement de la procédure d'apprentissage.
     """
-# --- SÉLECTION DYNAMIQUE DE L'ENVIRONNEMENT ---
+    # --- SÉLECTION DYNAMIQUE DE L'ENVIRONNEMENT ---
     print("=== Configuration du test ===")
     print("Choix possibles :")
     print("1. mpe (Multi-Agent Particle Environments)")
@@ -29,15 +29,6 @@ def main():
     
     choix_env = input("Entrez votre choix (lbf ou mpe) [Défaut: mpe] : ").strip().lower()
     
-    # Configuration par défaut ou application du choix utilisateur
-    if choix_env == "lbf":
-        selected_env = "lbf"
-        selected_map = "Foraging-8x8-2p-2f-v2"
-    else:
-        selected_env = "mpe"
-        selected_map = "simple_world_comm"
-    
-
     # --- SÉLECTION DYNAMIQUE DE L'ALGORITHME ---
     print("=== Configuration de l'algorithme ===")
     print("Choix possibles :")
@@ -45,6 +36,18 @@ def main():
     print("2. qmix")
     
     algo_choix = input("Entrez votre choix (ppo ou qmix) [Défaut: ppo] : ").strip().lower()
+
+    # Définition des paramètres selon les choix
+    if choix_env == "lbf":
+        selected_env = "lbf"
+        selected_map = "Foraging-8x8-2p-2f-v2"
+    else:
+        selected_env = "mpe"
+        # Logique centralisée pour la carte MPE selon l'algorithme
+        if algo_choix == "qmix":
+            selected_map = "simple_spread"
+        else:
+            selected_map = "simple_world_comm"
     
     # -----------------------------------------------
     # 1. Instanciation du moteur (coordinateur de la session)
@@ -55,8 +58,6 @@ def main():
     archi = MLPArchitecture(layers="64-64")
     
     if algo_choix == "qmix":
-        if choix_env == "mpe":
-            selected_map = "simple_spread"
         from mario.algos.qmix import QMixAlgo
         algo_instance = QMixAlgo(architecture=archi)
     else:
