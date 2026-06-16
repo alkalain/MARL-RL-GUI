@@ -27,16 +27,16 @@ def main():
     print("1. mpe (Multi-Agent Particle Environments)")
     print("2. lbf (Level Based Foraging)")
     
-    choix = input("Entrez votre choix (lbf ou mpe) [Défaut: mpe] : ").strip().lower()
+    choix_env = input("Entrez votre choix (lbf ou mpe) [Défaut: mpe] : ").strip().lower()
     
     # Configuration par défaut ou application du choix utilisateur
-    if choix == "lbf":
+    if choix_env == "lbf":
         selected_env = "lbf"
         selected_map = "Foraging-8x8-2p-2f-v2"
     else:
         selected_env = "mpe"
         selected_map = "simple_world_comm"
-    print(f"-> Environnement sélectionné : {selected_env} ({selected_map})\n")
+    
 
     # --- SÉLECTION DYNAMIQUE DE L'ALGORITHME ---
     print("=== Configuration de l'algorithme ===")
@@ -55,12 +55,15 @@ def main():
     archi = MLPArchitecture(layers="64-64")
     
     if algo_choix == "qmix":
+        if choix_env == "mpe":
+            selected_map = "simple_spread"
         from mario.algos.qmix import QMixAlgo
         algo_instance = QMixAlgo(architecture=archi)
     else:
         from mario.algos.ppo import PPOAlgo
         algo_instance = PPOAlgo(architecture=archi)
         
+    print(f"-> Environnement sélectionné : {selected_env} ({selected_map})\n")
     print(f"-> Algorithme sélectionné : {type(algo_instance).__name__}\n")
 
     # 3. Préparation de l'environnement via le wrapper MARIO
@@ -97,7 +100,7 @@ def main():
     print(f"Actions calculées : {actions}")
 
     # Rendu en fonction du choix d'environnement
-    if choix == "lbf":
+    if choix_env == "lbf":
         print("Démarrage du rendu visuel interactif pour LBF...")
         try:
             import time
