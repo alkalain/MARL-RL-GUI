@@ -76,7 +76,7 @@ def main():
     policy = engine.run_training(
         env=env_mario,
         algorithme=algo_instance, # On passe l'instance déjà configurée
-        architecture=None, # Inutile ici car définie dans l'objet algo_instance
+        architecture=archi, # Architecture attendue par le moteur d'entrainement
         algo_hpo_space=None, # Emplacement réservé pour l'optimisation future
         archi_hpo_space=None, # Emplacement réservé pour l'optimisation future
         stop_criteria={"training_iteration": 3} 
