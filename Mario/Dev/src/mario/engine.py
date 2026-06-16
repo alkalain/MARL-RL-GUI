@@ -110,8 +110,6 @@ class RunEngine:
         else:
             print("[MARIO ENGINE] Mode entraînement standard")
 
-            algo_instance = algorithme(architecture, algo_hpo_space)
-
             policy = algo_instance.train(
                 env_name=env_name,
                 map_name=map_name,
