@@ -87,7 +87,7 @@ class Algo(ABC):
         Returns:
             MARLlibPolicy: Interface de décision entraînée.
         """
-        print(f"[MARIO] Initialisation {env_name}:{map_name} | Algo: {self.type} | Archi: {architecture.type}")
+        print(f"[MARIO] Initialisation {env_name}:{map_name} | Algo: {self.type} | Archi: {architecture}")
         
         env_output = marl.make_env(environment_name=env_name, map_name=map_name, **env_kwargs)
         
