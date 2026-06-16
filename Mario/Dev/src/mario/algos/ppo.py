@@ -34,7 +34,8 @@ class PPOAlgo(Algo):
                 "lr": 0.0005,
                 "train_batch_size": 512,
                 "num_sgd_iter": 10,
-            }
+            },
+            share_policy="group"
         )
         self.architecture = architecture or MLPArchitecture()
 
