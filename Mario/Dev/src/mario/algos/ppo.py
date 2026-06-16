@@ -2,7 +2,7 @@ import os
 import glob
 from pathlib import Path
 from marllib import marl
-from mario.algos.base import Algo, ArchitectureSupport
+from mario.algos.base import Algo, ArchitectureSupport, patch_marllib
 from mario.algos.architectures import MLPArchitecture
 from mario.algos.marllibpolicy import MARLlibPolicy
 class PPOAlgo(Algo):
