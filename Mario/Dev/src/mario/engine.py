@@ -75,6 +75,13 @@ class RunEngine:
         env_kwargs = env.env_kwargs
         map_name = env.map_name
         
+        # Instanciation dynamique si l'utilisateur a passé la classe (type)
+        if isinstance(algorithme, type):
+            # Si l'utilisateur passe une classe, on l'instancie avec l'archi fournie
+            algo_instance = algorithme(architecture=architecture)
+        else:
+            # Si l'utilisateur passe déjà une instance, on l'utilise telle quelle
+            algo_instance = algorithme
         
 
         # Exectution avec optimisation d'hyperparamètres (Optuna)
