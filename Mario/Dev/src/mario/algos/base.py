@@ -39,7 +39,7 @@ class Algo(ABC):
     des appels MARLlib tout en garantissant une interface uniforme pour 
     l'utilisateur final.
     """
-    def __init__(self, algo_type: str, hyperparams: dict = None):
+    def __init__(self, algo_type: str, hyperparams: dict = None, share_policy: str = "all"):
         """
         Initialise les propriétés fondamentales de l'algorithme.
 
@@ -49,6 +49,7 @@ class Algo(ABC):
         """
         self.type = algo_type
         self.hyperparams = hyperparams or {}
+        self.share_policy = share_policy
 
     @abstractmethod
     def _get_marllib_algo(self, env_name: str):
@@ -102,6 +103,7 @@ class Algo(ABC):
             local_mode=True,
             num_gpus=GPUs,
             checkpoint_freq=Checkpoints_freq,
+            share_policy=self.share_policy,
             **self.hyperparams
         )
         
