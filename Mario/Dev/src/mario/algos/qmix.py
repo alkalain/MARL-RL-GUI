@@ -15,11 +15,12 @@ class QMixAlgo(Algo):
             algo_type="QMix",
             hyperparams=hyperparams or {
                 "lr": 0.0005,
-                "batch_size": 64, # Q-Mix a souvent des besoins en batch différents
-            }
+                "batch_size": 64,
+            },
+            share_policy="all"
         )
         self.architecture = architecture or MLPArchitecture()
 
     def _get_marllib_algo(self, env_name: str):
-        return marl.algos.qmix(hyperparam_source=env_name)
+        return marl.algos.qmix(hyperparam_source="test")
     
