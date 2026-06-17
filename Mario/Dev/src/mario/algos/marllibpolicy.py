@@ -134,6 +134,10 @@ class MARLlibPolicy(JointPolicy):
         self.env = env_instance
         self.exp_pattern = exp_pattern
 
+    def predict(self, observations):
+        """Placeholder — à implémenter."""
+        return {}
+
     # ------------------------------------------------------------------
     # RENDER — point d'entrée principal
     # ------------------------------------------------------------------
@@ -187,12 +191,13 @@ class MARLlibPolicy(JointPolicy):
             ```
         """
         patch_marllib()
-        model = model or self.model
 
         base_path = run_dir or self._choose_run_dir()
         print(f"[MARIO] Run sélectionné : {base_path}")
 
-        env = self._recreate_env(base_path)
+        # Reconstruit ENV + MODEL depuis les params du run sélectionné,
+        # pour garantir la cohérence avec le checkpoint choisi.
+        env, model = self._recreate_env_and_model(base_path)
 
         checkpoint_dir, checkpoint_num = self._select_checkpoint(base_path, checkpoint)
         checkpoint_file = str(Path(checkpoint_dir) / f"checkpoint-{checkpoint_num}")
@@ -272,27 +277,41 @@ class MARLlibPolicy(JointPolicy):
         exp_results.mkdir(exist_ok=True)
         return exp_results
 
-    def _recreate_env(self, base_path: Path):
-        """Recrée l'environnement MARLlib depuis `params.json`.
-
-        Extrait `env` (ex. `"mpe"`) et `map_name` (ex. `"simple_world_comm"`)
-        depuis `params.json`, puis appelle `marl.make_env()`. Cela garantit
-        que l'environnement du rendu est identique à celui de l'entraînement,
-        même si le processus courant est différent.
+    def _recreate_env_and_model(self, base_path: Path):
+        """Recrée l'environnement ET le modèle depuis params.json du run choisi.
 
         Args:
             base_path (Path): Chemin vers le dossier racine du run contenant
                 `params.json`.
 
         Returns:
-            Environnement MARLlib enregistré auprès de Ray Tune.
+            tuple: `(env_output, model)` où `env_output` est le tuple brut
+                `(env_instance, info)` retourné par `marl.make_env()`. Ce
+                tuple ne doit PAS être dégroupé : `marl.build_model()` accède
+                lui-même à `environment[0]` en interne, et `algo.render()` /
+                `algo.fit()` font `env_instance, info = env`. Le tuple complet
+                doit donc être transmis tel quel aux deux appels.
         """
         params = self._load_params(base_path)
-        env_args = params["model"]["custom_model_config"]["env_args"].copy()
-        env_name = params["model"]["custom_model_config"]["env"]
+        custom_cfg = params["model"]["custom_model_config"]
+
+        env_args = custom_cfg["env_args"].copy()
+        env_name = custom_cfg["env"]
         map_name = env_args.pop("map_name")
+
         print(f"[MARIO] Env recréé depuis params.json : {env_name}:{map_name}")
-        return marl.make_env(environment_name=env_name, map_name=map_name, **env_args)
+        env_output = marl.make_env(environment_name=env_name, map_name=map_name, **env_args)
+
+        model_arch_args = custom_cfg.get("model_arch_args", {})
+        arch_config = model_arch_args if model_arch_args else {"core_arch": "mlp", "encode_layer": "128-128"}
+
+        print(f"[MARIO] Architecture reconstruite depuis params.json : {arch_config}")
+
+        # build_model attend le tuple complet (env_instance, info), pas env_instance seul
+        model = marl.build_model(env_output, self.algo, arch_config)
+
+        # render()/fit() attendent eux aussi le tuple complet
+        return env_output, model
 
     # ------------------------------------------------------------------
     # Méthodes internes — sélection du run
@@ -621,21 +640,21 @@ class MARLlibPolicy(JointPolicy):
             rendus très longs, cela peut représenter une consommation
             mémoire significative.
         """
-    import imageio
+        import imageio
 
-    mp4_files = sorted(
-        glob.glob(str(Path(record_dir) / "*.mp4")),
-        key=os.path.getctime
-    )
-    if not mp4_files:
-        raise FileNotFoundError(f"Aucun .mp4 trouvé dans {record_dir} pour conversion en gif.")
+        mp4_files = sorted(
+            glob.glob(str(Path(record_dir) / "*.mp4")),
+            key=os.path.getctime
+        )
+        if not mp4_files:
+            raise FileNotFoundError(f"Aucun .mp4 trouvé dans {record_dir} pour conversion en gif.")
 
-    latest_mp4 = mp4_files[-1]
-    gif_path = output_path + ".gif"
+        latest_mp4 = mp4_files[-1]
+        gif_path = output_path + ".gif"
 
-    reader = imageio.get_reader(latest_mp4)
-    fps = reader.get_meta_data().get("fps", 20)
-    frames = [frame for frame in reader]
-    imageio.mimsave(gif_path, frames, fps=fps)
+        reader = imageio.get_reader(latest_mp4)
+        fps = reader.get_meta_data().get("fps", 20)
+        frames = [frame for frame in reader]
+        imageio.mimsave(gif_path, frames, fps=fps)
 
-    print(f"[MARIO] GIF généré : {gif_path}")
+        print(f"[MARIO] GIF généré : {gif_path}")
