@@ -166,6 +166,7 @@ def _worker_trial(
         algo.train(
             env_name=env_name,
             map_name=map_name,
+            architecture=architecture,
             env_kwargs=env_kwargs,
             stop_criteria=stop_criteria,
             GPUs=GPUs,
