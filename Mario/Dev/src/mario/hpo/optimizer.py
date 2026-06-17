@@ -65,7 +65,8 @@ import joblib
 from pathlib import Path
 from typing import Type, Optional
 from mario.hpo.spaces import AlgoHyperparametersResearchSpace, ArchiHyperparametersResearchSpace
-from mario.algos.base import Algo, JointPolicy
+from mario.algos.base import Algo
+from mario.algos.policies import JointPolicy
 
 # Silencer les logs Optuna parasites (INFO de chaque trial)
 optuna.logging.set_verbosity(optuna.logging.WARNING)
@@ -165,6 +166,7 @@ def _worker_trial(
         algo.train(
             env_name=env_name,
             map_name=map_name,
+            architecture=architecture,
             env_kwargs=env_kwargs,
             stop_criteria=stop_criteria,
             GPUs=GPUs,

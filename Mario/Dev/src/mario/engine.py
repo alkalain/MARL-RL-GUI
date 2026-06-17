@@ -3,10 +3,12 @@ from typing import Optional
 
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from mario.envs.base import MultiAgentEnv
-from mario.algos.base import Algo, ArchitectureSupport, JointPolicy
+from mario.algos.base import Algo, ArchitectureSupport
+from mario.algos.policies import JointPolicy
 from mario.hpo.spaces import AlgoHyperparametersResearchSpace, ArchiHyperparametersResearchSpace
 from mario.utils.stats import Stats
 from marllib import marl
+from typing import Union
 
 class RunEngine:
     """
@@ -28,7 +30,7 @@ class RunEngine:
     def run_training(
         self,
         env: MultiAgentEnv,
-        algorithme: Algo,
+        algorithme: Union[type, Algo],
         architecture: ArchitectureSupport = None,
         algo_hpo_space: AlgoHyperparametersResearchSpace = None,
         archi_hpo_space: ArchiHyperparametersResearchSpace = None,
@@ -41,25 +43,28 @@ class RunEngine:
         hpo_direction: str = "maximize",
     ) -> JointPolicy:
         """
-        Pilote une session complète d'entraînement automatique.
+        Pilote une session complète d'entraînement.
         
-        Cette méthode extrait les configurations nécessaires des composants fournis 
-        et lance la procédure d'apprentissage pour générer une politique de décision.
+        Cette méthode initialise l'algorithme s'il ne l'est pas encore, puis 
+        déclenche le cycle d'apprentissage standardisé.
 
         Args:
             env (MultiAgentEnv): L'environnement de simulation cible.Ses propriétés
                 fondamentales (`env_name`, `map_name`) ainsi que le dictionnaire de paramètres
                 dynamiques (`env_kwargs`) en sont extraits pour être injectés dans l'algorithme.
-            algo (Algo): L'algorithme d'apprentissage à utiliser.
-            architecture (ArchitectureSupport, optional): La configuration du réseau de neurones.
+            algorithme (Union[type, Algo]): Classe ou instance de l'algorithme (ex: PPOAlgo).
+            architecture (ArchitectureSupport, optional): Configuration réseau si l'algo 
+                n'est pas encore instancié.
             algo_hpo_space (AlgoHyperparametersResearchSpace, optional): Espace de recherche 
                 pour les paramètres de l'algorithme.
             archi_hpo_space (ArchiHyperparametersResearchSpace, optional): Espace de recherche 
                 pour les paramètres de l'architecture.
-            stop_criteria (dict, optional): Conditions d'arrêt de l'entraînement.
+            stop_criteria (dict, optional): Conditions d'arrêt (ex: {"training_iteration": 3}).
+            GPUs (int): Nombre de GPUs à allouer.
+            Checkpoints_freq (int): Fréquence de sauvegarde des modèles.
         
         Returns:
-            JointPolicy: La politique jointe résultante de l'entraînement, prête pour l'exécution.
+            JointPolicy: Politique entraînée prête à l'emploi.
         """
         
         print(f"--- [MARIO ENGINE] Démarrage de la session ---")
@@ -69,6 +74,15 @@ class RunEngine:
         env_name = env.env_name
         env_kwargs = env.env_kwargs
         map_name = env.map_name
+        
+        # Instanciation dynamique si l'utilisateur a passé la classe (type)
+        if isinstance(algorithme, type):
+            # Si l'utilisateur passe une classe, on l'instancie avec l'archi fournie
+            algo_instance = algorithme(architecture=architecture)
+        else:
+            # Si l'utilisateur passe déjà une instance, on l'utilise telle quelle
+            algo_instance = algorithme
+        
 
         # Exectution avec optimisation d'hyperparamètres (Optuna)
         if algo_hpo_space is not None and archi_hpo_space is not None:
@@ -96,12 +110,11 @@ class RunEngine:
         else:
             print("[MARIO ENGINE] Mode entraînement standard")
 
-            algo_instance = algorithme(architecture, algo_hpo_space)
-
             policy = algo_instance.train(
                 env_name=env_name,
                 map_name=map_name,
                 env_kwargs=env_kwargs,
+                architecture=architecture,
                 stop_criteria=stop_criteria,
                 GPUs=GPUs,
                 Checkpoints_freq=Checkpoints_freq,

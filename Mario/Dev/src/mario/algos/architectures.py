@@ -60,3 +60,15 @@ class CNNArchitecture(ArchitectureSupport):
             "core_arch": "cnn",
             "encode_layer": self.layers,
         }
+
+class RNNArchitecture(ArchitectureSupport):
+    """Réseau récurrent — adapté aux séquences temporelles."""
+    def __init__(self, layers: str = "64-64"):
+        super().__init__(arch_type="RNN")
+        self.layers = layers
+
+    def to_marllib_config(self) -> dict:
+        return {
+            "core_arch": "rnn",
+            "encode_layer": self.layers,
+        }

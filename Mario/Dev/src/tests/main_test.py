@@ -27,16 +27,28 @@ def main():
     print("1. mpe (Multi-Agent Particle Environments)")
     print("2. lbf (Level Based Foraging)")
     
-    choix = input("Entrez votre choix (lbf ou mpe) [Défaut: mpe] : ").strip().lower()
+    choix_env = input("Entrez votre choix (lbf ou mpe) [Défaut: mpe] : ").strip().lower()
     
-    # Configuration par défaut ou application du choix utilisateur
-    if choix == "lbf":
+    # --- SÉLECTION DYNAMIQUE DE L'ALGORITHME ---
+    print("=== Configuration de l'algorithme ===")
+    print("Choix possibles :")
+    print("1. ppo")
+    print("2. qmix")
+    
+    algo_choix = input("Entrez votre choix (ppo ou qmix) [Défaut: ppo] : ").strip().lower()
+
+    # Définition des paramètres selon les choix
+    if choix_env == "lbf":
         selected_env = "lbf"
         selected_map = "Foraging-8x8-2p-2f-v2"
     else:
         selected_env = "mpe"
-        selected_map = "simple_world_comm"
-    print(f"-> Environnement sélectionné : {selected_env} ({selected_map})\n")
+        # Logique centralisée pour la carte MPE selon l'algorithme
+        if algo_choix == "qmix":
+            selected_map = "simple_spread"
+        else:
+            selected_map = "simple_world_comm"
+    
     # -----------------------------------------------
     # 1. Instanciation du moteur (coordinateur de la session)
     engine = RunEngine()
@@ -44,9 +56,16 @@ def main():
     # 2. Configuration de l'algorithme (Adaptateur MARLlib)
     # Définition d'une architecture MLP avec deux couches cachées de 64 neurones pour le test
     archi = MLPArchitecture(layers="64-64")
-    ppo = PPOAlgo(
-        architecture=archi,
-        )
+    
+    if algo_choix == "qmix":
+        from mario.algos.qmix import QMixAlgo
+        algo_instance = QMixAlgo(architecture=archi)
+    else:
+        from mario.algos.ppo import PPOAlgo
+        algo_instance = PPOAlgo(architecture=archi)
+        
+    print(f"-> Environnement sélectionné : {selected_env} ({selected_map})\n")
+    print(f"-> Algorithme sélectionné : {type(algo_instance).__name__}\n")
 
     # 3. Préparation de l'environnement via le wrapper MARIO
     # On utilise ici un scénario simple 'simple_v3' pour accélérer les tests
@@ -57,8 +76,8 @@ def main():
     print("Démarrage du test d'intégration...")
     policy = engine.run_training(
         env=env_mario,
-        algorithme=PPOAlgo,
-        architecture=None, # Configuration optionnelle si déjà définie dans l'objet ppo
+        algorithme=algo_instance, # On passe l'instance déjà configurée
+        architecture=archi, # Architecture attendue par le moteur d'entrainement
         algo_hpo_space=None, # Emplacement réservé pour l'optimisation future
         archi_hpo_space=None, # Emplacement réservé pour l'optimisation future
         stop_criteria={"training_iteration": 3} 
@@ -82,7 +101,7 @@ def main():
     print(f"Actions calculées : {actions}")
 
     # Rendu en fonction du choix d'environnement
-    if choix == "lbf":
+    if choix_env == "lbf":
         print("Démarrage du rendu visuel interactif pour LBF...")
         try:
             import time
