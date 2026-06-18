@@ -70,7 +70,7 @@ L’apprentissage par renforcement multi-agents est composé de deux conceptions
 
 La politique de l’agent est supportée par les réseaux de neurones qui sont entraînés via des algorithmes d’apprentissage par renforcement afin de mettre à jour leurs poids. Cependant, il y a plusieurs hyperparamètres qui sont réglés au préalable pour ensuite entraîner le model. Par exemple pour un réseau de neurones où le réseau est le modèle apprenant les hyper paramètre sont le nombre de neurones dans une couche, le nombre de couches, etc.
 
-L’optimisation des hyperparamètres consiste à essayer plusieurs réglages des différents hyperparamètres différents pour trouver le réglage optimal. Autrement dit, il consiste à trouver un tuple1 d’hyperparamètre qui produit un modèle optimal qui minimise une fonction d’objectif prédéfinie sur des données de test définies (typiquement la récompense moyenne sur un ensemble d’épisodes de tests). Cette recherche par essai-erreur des hyperparamètres peut prendre beaucoup de temps au vu du très grand nombre de valeurs possibles que ces hyperparamètres peuvent prendre. De ce fait, pour trouver une combinaison satisfaite d’hyperparamètres, on peut restreindre la recherche à un espace de valeurs dont on sait par expérience qu’il est le plus pertinent. Par exemple, on sait qu’une fonction d’activation de type ReLU (Rectified Linear Unit, la fonction d’activation la plus utilisée dans les réseaux de neurones) est en général suffisante pour des applications RL.
+L’optimisation des hyperparamètres consiste à essayer plusieurs réglages des différents hyperparamètres différents pour trouver le réglage optimal. Autrement dit, il consiste à trouver un tuple   d’hyperparamètre qui produit un modèle optimal qui minimise une fonction d’objectif prédéfinie sur des données de test définies (typiquement la récompense moyenne sur un ensemble d’épisodes de tests). Cette recherche par essai-erreur des hyperparamètres peut prendre beaucoup de temps au vu du très grand nombre de valeurs possibles que ces hyperparamètres peuvent prendre. De ce fait, pour trouver une combinaison satisfaite d’hyperparamètres, on peut restreindre la recherche à un espace de valeurs dont on sait par expérience qu’il est le plus pertinent. Par exemple, on sait qu’une fonction d’activation de type ReLU (Rectified Linear Unit, la fonction d’activation la plus utilisée dans les réseaux de neurones) est en général suffisante pour des applications RL.
 
 # État de l’art
 
@@ -95,14 +95,14 @@ Interface de visualisation & [x] & [x] & [x] & [x] & [x] \\ \hline
 
 Comme le montre le tableau ci-dessus peu sont les plateformes ou solutions existantes qui proposent une configuration de modèles d’apprentissage par renforcement et d’une utilisation simple et agnostique de tout environnement et algorithmes de RL ou de connaissances expertes avancées. Cela pose le problème suivant :
 
-> Dans l’état actuel des outils disponibles pour entraîner et simuler des interactions de système multi-agents en apprentissage par renforcement il faut savoir maîtriser plusieurs librairies2 toutes avec leur spécificité et leur framework3 propre. Comment améliorer l’utilisabilité de ces librairies et rendre l’accessibilité du MARL le plus agnostique possible de connaissance des frameworks et connaissances expertes en RL ?
+> Dans l’état actuel des outils disponibles pour entraîner et simuler des interactions de système multi-agents en apprentissage par renforcement il faut savoir maîtriser plusieurs librairies   toutes avec leur spécificité et leur framework  propre. Comment améliorer l’utilisabilité de ces librairies et rendre l’accessibilité du MARL le plus agnostique possible de connaissance des frameworks et connaissances expertes en RL ?
 
 
 # Le projet MARIO
 
 MARIO est une solution simplifiée et réunissant en une librairie les différentes librairies nécessaires pour réaliser un projet en MARL :
 PettingZoo : Il s'agit du standard international pour les environnements multi-agents. Nous l'utilisons pour garantir une interopérabilité totale, permettant de passer d'une simulation à une autre sans modifier la structure de communication entre les agents.
-MARLlib (Le moteur d'algorithmes) : Ce framework fournit la base algorithmique. Sa maturité et sa richesse en algorithmes MARL éprouvés en font le socle idéal pour traiter des cas d'usage complexes là où d'autres librairies (comme, plus anciennement utilisées, Stable-Baselines3 ou TorchRL) se montrent plus limitées.
+MARLlib (Le moteur d'algorithmes) : Ce framework fournit la base algorithmique. Sa maturité et sa richesse en algorithmes MARL éprouvés en font le socle idéal pour traiter des cas d'usage complexes là où d'autres librairies (comme, plus anciennement utilisées, Stable-Baselines ou TorchRL) se montrent plus limitées.
 Optuna (L'optimisation) : Issu de la recherche académique, Optuna est aujourd'hui l'état de l'art pour l'optimisation des Hyperparamètres (HPO). Il automatise le réglage fin des modèles, rendant la configuration performante accessible sans nécessiter une expertise manuelle approfondie. 
 
 Cette solution met à disposition une librairie, une interface en ligne de commande et une interface graphique permettant de rapidement et facilement expérimenter un système multi-agents en apprentissage par renforcement. L’interface graphique étant le plus abordable, le but est de proposer un modèle de simplification de l’utilisabilité des librairies du MARL.
@@ -134,7 +134,7 @@ Nous avons donc mis en place un système de génération de documentation via Pd
 
 ## Guide d’installation
 
-Le document Readme.md disponible dans le dépôt GitHub5 du projet, ce guide fournit les indications à effectuer afin qu’un développeur puisse installer le projet sur sa machine et poursuivre son développement facilement.
+Le document Readme.md disponible dans le dépôt  GitHub du projet, ce guide fournit les indications à effectuer afin qu’un développeur puisse installer le projet sur sa machine et poursuivre son développement facilement.
 
 # Organisation du projet
 
@@ -148,12 +148,12 @@ Dans le cadre du développement, chaque nouvelle fonctionnalité ou correction e
 ### Convention de nommage des commits
 Une convention de nommage des commits est également mise en place afin d’améliorer la traçabilité des modifications. Chaque commit décrit clairement la nature du changement effectué (ajout de fonctionnalité, correction de bug, amélioration, documentation, etc.), ce qui facilite le suivi de l’évolution du projet.
 ### Validation automatique
-Avant toute fusion de code via un Pull Request (PR)6, un pipeline d’intégration continue est exécutée automatiquement. Ce pipeline a pour but de vérifier la conformité de l’architecture de MARIO et l’absence d’erreurs bloquantes. Cette étape permet de détecter rapidement les problèmes potentiels et d'assurer la stabilité du code intégré.
+Avant toute fusion de code via un  Pull Request (PR), un pipeline d’intégration continue est exécutée automatiquement. Ce pipeline a pour but de vérifier la conformité de l’architecture de MARIO et l’absence d’erreurs bloquantes. Cette étape permet de détecter rapidement les problèmes potentiels et d'assurer la stabilité du code intégré.
 ### Validation mutuelle
 Avant toute fusion de code via une Pull Request (PR), le membre de l’équipe qui n’est pas le principal contributeur de la branche complète le processus de validation en assurant la validité des modifications effectuées.
 ### Backlog
 
-À partir des issues* créées en fonction des différentes tâches à effectuer et à l’aide de l’outil “Projects” intégré à GitHub, un kanban de tâches7 a été mis en place. Ce dernier a pour but de pouvoir retracer en temps réels les tâches à faire ainsi que leur état de progression.
+À partir des issues* créées en fonction des différentes tâches à effectuer et à l’aide de l’outil “Projects” intégré à GitHub, un kanban de tâches a été mis en place. Ce dernier a pour but de pouvoir retracer en temps réels les tâches à faire ainsi que leur état de progression.
 
 ## Communication avec le tuteur
 Des réunions ont été régulièrement organisées (approximativement 1 semaine) avec M. SOULÉ afin de faire un bilan sur la progression du projet. Cela nous a permis de continuellement nous assurer que le projet avançait dans la bonne direction. Par ailleurs, en cas de nécessité, nous avons aussi pu contacter notre tuteur en cas de blocage notamment sur le plan technique.
@@ -205,8 +205,8 @@ D’autres difficultés rencontrées ont impacté le bon déroulement du projet,
 ## Perspectives
 D’autre part, le projet présente des perspectives d’évolution variées, distinguant les améliorations à court terme, d'ores et déjà planifiées, des axes de développement futurs, qui constituent des opportunités d’enrichissement notables :
 
-Une interface CLI8 (Command Line Interface) s’appuyant sur ArgParse, le module standard de python pour créer des interface CLI, proposant une utilisation facilitée de la librairie MARIO.
-Une interface GUI9 (Graphical User Interface), permettant l’utilisation des mêmes fonctionnalités, une utilisation probablement plus lente qu’une interface CLI pour une personne initiée, mais une visualisation de l’interface et un rendu du résultat des entrainements plus agréables.
+Une interface CLI (Command Line Interface) s’appuyant sur ArgParse, le module standard de python pour créer des interface CLI, proposant une utilisation facilitée de la librairie MARIO.
+Une interface GUI (Graphical User Interface), permettant l’utilisation des mêmes fonctionnalités, une utilisation probablement plus lente qu’une interface CLI pour une personne initiée, mais une visualisation de l’interface et un rendu du résultat des entrainements plus agréables.
 
 Le développement de ces deux interfaces sont les deux prochaines étapes du déroulement logique de notre projet, puisqu’elles répondent directement à l’objectif de la librairie MARIO, à savoir rendre l’utilisation de MARL la plus agnostique de connaissance possible.
 
@@ -252,23 +252,23 @@ Soulé, J. (n.d.). GitHub - julien6/MOISE-MARL: MOISE+MARL is an organizationall
 
 # Glossaires
 
-tuple1 : Structure de données immuable (non modifiable) en Python permettant de stocker une séquence ordonnée d'éléments. 
+tuple : Structure de données immuable (non modifiable) en Python permettant de stocker une séquence ordonnée d'éléments. 
 
-librairies2 : Ensemble de codes et de fonctions pré-écrits que l'on intègre à un programme pour étendre ses fonctionnalités sans tout redévelopper. 
+librairies : Ensemble de codes et de fonctions pré-écrits que l'on intègre à un programme pour étendre ses fonctionnalités sans tout redévelopper. 
 
-framework3 : Cadre de travail structuré fournissant une base logicielle solide et des outils pour développer des applications complexes de manière standardisée. 
+framework : Cadre de travail structuré fournissant une base logicielle solide et des outils pour développer des applications complexes de manière standardisée. 
 
-docstrings4 : Commentaires placés dans le code source (généralement entre triples guillemets) qui documentent automatiquement le rôle des fonctions, classes ou modules. 
+docstrings : Commentaires placés dans le code source (généralement entre triples guillemets) qui documentent automatiquement le rôle des fonctions, classes ou modules. 
 
-GitHub5 : Plateforme de développement collaboratif utilisant Git pour héberger, gérer le versionnage du code et faciliter le travail en équipe. 
+ GitHub : Plateforme de développement collaboratif utilisant Git pour héberger, gérer le versionnage du code et faciliter le travail en équipe. 
 
-Pull Request (PR)6 : Mécanisme sur GitHub permettant de proposer des modifications au code source d'un projet pour qu'elles soient revues, discutées puis intégrées par les responsables. 
+ Pull Request (PR) : Mécanisme sur GitHub permettant de proposer des modifications au code source d'un projet pour qu'elles soient revues, discutées puis intégrées par les responsables. 
 
-kanban de tâches7 : Outil de gestion visuelle (sous forme de colonnes : “À faire”, “En cours”, “En revue” “Terminé”) permettant de suivre l'avancement et le flux de travail d'un projet. 
+kanban de tâches : Outil de gestion visuelle (sous forme de colonnes : “À faire”, “En cours”, “En revue” “Terminé”) permettant de suivre l'avancement et le flux de travail d'un projet. 
 
-interface CLI8 : Interface textuelle où l'utilisateur interagit avec le logiciel en tapant des commandes dans un terminal. 
+interface CLI : Interface textuelle où l'utilisateur interagit avec le logiciel en tapant des commandes dans un terminal. 
 
-interface GUI9 : Interface visuelle permettant d'interagir avec le logiciel via des éléments graphiques (fenêtres, boutons, menus) manipulés à la souris. 
+interface GUI : Interface visuelle permettant d'interagir avec le logiciel via des éléments graphiques (fenêtres, boutons, menus) manipulés à la souris. 
 
 # Annexes
 
